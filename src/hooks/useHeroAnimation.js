@@ -105,5 +105,5 @@ export function useHeroAnimation({ overlayRef, vPathRef, vTextRef, titleCharsRef
     });
 
     return () => ctx.revert();
-  }, [overlayRef, vPathRef, titleCharsRef, eyebrowRef, subRef, navRef, scrollRef]);
+  }, [overlayRef, vPathRef, vTextRef, titleCharsRef, eyebrowRef, subRef, navRef, scrollRef]);
 }

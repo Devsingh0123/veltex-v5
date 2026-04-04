@@ -161,10 +161,14 @@ export default function Nav({ navRef }) {
         <div className="flex items-center justify-center gap-4 sm:gap-5 w-full pointer-events-none">
           {/* 3D Logo Button */}
           <button
-            onClick={() => go('/')}
+            onClick={() => {
+              setMenuOpen(false);
+              // Scroll to top when V is clicked
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="pointer-events-auto flex items-center justify-center w-[46px] h-[46px] group outline-none flex-shrink-0"
             style={{ transformStyle: 'preserve-3d' }}
-            aria-label="Veltex Logo"
+            aria-label="Veltex Logo - Scroll to Top"
           >
             <div className="relative flex items-center justify-center w-full h-full bg-[rgba(59,57,55,0.65)] rounded-full transition-all duration-700 ease-in-out group-hover:rotate-y-180 group-hover:scale-110 shadow-[0_4px_30px_rgba(0,0,0,0.15)] border border-white/5">
               <svg viewBox="0 0 32 32" className="w-[30px] h-auto text-[#f4eff0] drop-shadow-md" style={{ backfaceVisibility: 'hidden' }}>

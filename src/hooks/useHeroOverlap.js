@@ -72,5 +72,5 @@ export function useHeroOverlap({ heroRef, contentRef, overlayBgRef, bgRef, scrol
         trigger.kill();
       });
     };
-  }, []);
+  }, [heroRef, contentRef, overlayBgRef, bgRef, scrollRef]);
 }

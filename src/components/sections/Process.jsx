@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useProcessAnimation } from '../../hooks/useScrollAnimations';
 import { VBackgroundPattern } from './VShape';
 
@@ -32,8 +32,31 @@ const STEPS = [
 
 export default function Process() {
   const sectionRef = useRef(null);
+  const [visibleSteps, setVisibleSteps] = useState([]);
 
   useProcessAnimation({ sectionRef });
+
+  // Animate steps on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = parseInt(entry.target.getAttribute('data-index'));
+          if (entry.isIntersecting) {
+            setVisibleSteps(prev => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const stepElements = document.querySelectorAll('.process-step-item');
+    stepElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      stepElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   return (
     <section
@@ -54,10 +77,13 @@ export default function Process() {
       </div>
 
       <div className="flex flex-col gap-0" role="list">
-        {STEPS.map((step) => (
+        {STEPS.map((step, index) => (
           <div
             key={step.num}
-            className="process-step-item grid grid-cols-[80px_1fr] gap-12 items-start py-16 border-t border-black/12 opacity-0 translate-y-10 sm:grid-cols-1 sm:gap-6 last:border-b last:border-black/12"
+            data-index={index}
+            className={`process-step-item grid grid-cols-[80px_1fr] gap-12 items-start py-16 border-t border-black/12 opacity-0 translate-y-10 sm:grid-cols-1 sm:gap-6 last:border-b last:border-black/12 ${
+              visibleSteps.includes(index) ? 'translate-y-0 opacity-100' : ''
+            }`}
             role="listitem"
             aria-label={`Step ${step.num}: ${step.title}`}
           >

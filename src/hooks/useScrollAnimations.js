@@ -25,7 +25,7 @@ export function useHeroParallax(bgRef) {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [bgRef]);
 }
 
 /**
@@ -99,7 +99,7 @@ export function useAboutAnimation({ sectionRef, imageRef, wordRefs }) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sectionRef, imageRef, wordRefs]);
 }
 
 /**
@@ -139,7 +139,7 @@ export function useWorkAnimation({ sectionRef }) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sectionRef]);
 }
 
 /**
@@ -197,7 +197,7 @@ export function useProcessAnimation({ sectionRef }) {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sectionRef]);
 }
 
 /**
@@ -220,12 +220,12 @@ export function useContactAnimation({ sectionRef }) {
       });
 
       if (image)   tl.from(image,   { x: -50, opacity: 0, duration: 1, ease: 'power3.out' });
-      if (heading) tl.from(heading, { y: 60,  opacity: 0, duration: 1.1, ease: 'power4.out' }, '-=0.7');
-      if (actions) tl.from(actions, { y: 30,  opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
+      if (heading) tl.from(heading, { y: 60, opacity: 0, duration: 1.1, ease: 'power4.out' }, '-=0.7');
+      if (actions) tl.from(actions, { y: 30, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5');
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [sectionRef]);
 }
 
 /**
@@ -249,5 +249,5 @@ export function useVDividerAnimation(ref) {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [ref]);
 }
