@@ -44,10 +44,8 @@ export default function HomePage({ navRef }) {
         <Marquee speed={35} invert={true} />
         <VDivider fromColor="#0a0a0a" toColor="#f5f0e8" />
         <About />
-        <VDivider fromColor="#f5f0e8" toColor="#0a0a0a" flip />
         <Work />
         <ScrollReel text="VELTEX" bg="#0a0a0a" color="#fff" />
-        <VDivider fromColor="#0a0a0a" toColor="#f5f0e8" />
         <Process />
         <Marquee speed={45} invert={false} />
         <Contact />

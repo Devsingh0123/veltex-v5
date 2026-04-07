@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useWorkAnimation } from '../../hooks/useScrollAnimations';
 
@@ -15,7 +16,7 @@ const PROJECTS = [
     id: 2,
     title: 'Obsidian',
     subtitle: 'Digital Experience',
-    desc: 'An immersive web platform for a luxury real-estate developer — merging high-res visuals with scroll-driven narratives.',
+    desc: 'An immersive web platform for a luxury real-estate developer merging high-res visuals with scroll-driven narratives.',
     thumb: 'https://images.unsplash.com/photo-1493663284031-b7e3aaa4d70b?w=200&auto=format&fit=crop&q=80',
     bg: 'https://images.unsplash.com/photo-1493663284031-b7e3aaa4d70b?w=1600&auto=format&fit=crop&q=80',
   },
@@ -31,7 +32,7 @@ const PROJECTS = [
     id: 4,
     title: 'Auris',
     subtitle: 'Motion & Campaign',
-    desc: 'A cinematic campaign for a premium audio brand — blending tactile product craft with abstract motion design.',
+    desc: 'A cinematic campaign for a premium audio brand blending tactile product craft with abstract motion design.',
     thumb: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=200&auto=format&fit=crop&q=80',
     bg: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80',
   },
@@ -39,12 +40,18 @@ const PROJECTS = [
 
 export default function Work() {
   const sectionRef = useRef(null);
+  const wordRefs = useRef([]);
   const [active, setActive] = useState(0);
-  const titleRef  = useRef(null);
-  const descRef   = useRef(null);
-  const labelRef  = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const labelRef = useRef(null);
+  const navigate = useNavigate();
 
   useWorkAnimation({ sectionRef });
+
+  const addWordRef = (el) => {
+    if (el) wordRefs.current.push(el);
+  };
 
   const handleSwitch = (index) => {
     if (index === active) return;
@@ -65,80 +72,133 @@ export default function Work() {
     tl.fromTo(labelRef.current, { opacity: 0 },         { opacity: 1, duration: 0.4 }, '-=0.4');
   };
 
+  const handleViewAllProjects = () => {
+    navigate('/projects');
+  };
+
   const proj = PROJECTS[active];
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0a0a] min-h-screen py-20 overflow-hidden flex items-center justify-center sm:h-screen sm:py-0"
+      className="relative bg-[#f5f0e8] text-[#1a1a1a]  "
       id="work"
       aria-label="Selected work"
-    >
-      {/* Background slides */}
-      {PROJECTS.map((p, i) => (
-        <div
-          key={p.id}
-          className={`absolute inset-0 transition-opacity duration-800 cubic-bezier(0.16,1,0.3,1) will-change-opacity ${i === active ? 'opacity-100' : 'opacity-0'}`}
-          aria-hidden="true"
-        >
+    ><div className=" px-[6vw]  overflow-hidden">
+      <p className="work-label font-sans text-[0.7rem] font-medium tracking-[0.3em] uppercase text-[#666] mb-20">(Our Work)</p>
+
+      {/* Large editorial headline */}
+      <h2 className="font-serif text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[#1a1a1a] max-w-[80vw] mb-10">
+        <span className="inline-block overflow-hidden align-bottom">
+          <span ref={addWordRef} className="work-headline-word inline-block">Crafting digital</span>
+        </span>{' '}
+        <span className="inline-block overflow-hidden align-bottom">
+          <em ref={addWordRef} className="work-headline-word italic font-normal text-[#d44b1e] inline-block">experiences that inspire.</em>
+        </span>
+      </h2>
+
+      <p className="work-description font-sans text-[clamp(0.95rem,1.2vw,1.125rem)] font-light leading-[1.75] text-[#555] max-w-[600px] mb-16">
+        We transform bold ideas into exceptional digital solutions. From brand identities to immersive web experiences, our work combines creative vision with technical excellence to deliver results that resonate and inspire action.
+      </p>
+      </div>
+
+      {/* Project Gallery - Full Width Image with Enhanced Overlay */}
+      <div className="work-project-gallery relative w-full h-[80vh] min-h-[600px] max-h-[800px] overflow-hidden rounded-sm shadow-2xl">
+        {/* Background Image with Parallax Effect */}
+        <div className="absolute inset-0">
           <img
-            src={p.bg}
-            alt={p.title}
-            className="w-full h-full object-cover"
-            loading={i === 0 ? 'eager' : 'lazy'}
+            className="work-bg-image w-full h-full object-cover transition-all duration-1000 ease-out hover:scale-110"
+            style={{ transform: 'scale(1.05)' }}
+            src={proj.bg}
+            alt={proj.title}
+            loading="eager"
           />
         </div>
-      ))}
+        
+        {/* Sophisticated Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        
+        {/* Content Overlay with Enhanced Styling */}
+        <div className="absolute inset-0 flex items-center justify-between px-[8vw] md:px-[10vw]">
+          {/* Left Side - Thumbnails */}
+          <div className="flex flex-col gap-8">
+            {/* Thumbnail Switcher */}
+            <div className="flex  gap-4">
+              {PROJECTS.map((project, index) => (
+                <button
+                  key={project.id}
+                  onClick={() => handleSwitch(index)}
+                  className={`work-thumbnail group relative w-16 h-16 rounded-xl overflow-hidden border-2 transition-all duration-500 transform ${
+                    index === active 
+                      ? 'border-white scale-110 shadow-2xl ring-2 ring-white/20' 
+                      : 'border-white/20 hover:border-white/60 hover:scale-105 hover:shadow-xl'
+                  }`}
+                  aria-label={`View project: ${project.title}`}
+                >
+                  <img
+                    src={project.thumb}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Active Indicator */}
+                  {index === active && (
+                    <div className="absolute inset-0 bg-white/20" />
+                  )}
+                </button>
+              ))}
+            </div>
+            
+            {/* Navigation Hint */}
+            <div className="hidden md:block">
+              <p className="font-sans text-[0.6rem] tracking-[0.2em] uppercase text-white/40">
+                Click to explore
+              </p>
+            </div>
+          </div>
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a]/85 via-[#0a0a0a]/40 to-[#0a0a0a]/20 z-[1]" aria-hidden="true" />
+          {/* Right Side - Content */}
+          <div className="work-project-content max-w-[600px] text-white space-y-8">
+            {/* Project Counter */}
+            <div className="flex items-center gap-4">
+              <div className="h-px bg-white/30 w-12" />
+              <p ref={labelRef} className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-white/60 font-medium">
+                PROJECT {String(active + 1).padStart(2, '0')} OF {String(PROJECTS.length).padStart(2, '0')}
+              </p>
+            </div>
 
-      {/* Content */}
-      <div className="relative z-[2] grid grid-cols-1 items-center gap-12 px-8 w-full max-w-[1400px] lg:grid-cols-[auto_1fr] lg:gap-24 lg:px-[6vw]">
+            {/* Project Title with Enhanced Typography */}
+            <div className="space-y-4">
+              <h3 ref={titleRef} className="font-serif text-[clamp(2.5rem,4vw,4rem)] font-medium leading-[1.1] tracking-[-0.02em] text-white">
+                {proj.title}
+                <br />
+                <em className="italic font-normal text-[#d44b1e] block mt-2">{proj.subtitle}</em>
+              </h3>
+              
+              {/* Project Description */}
+              <p ref={descRef} className="font-sans text-[clamp(0.95rem,1.1vw,1.1rem)] leading-[1.8] text-white/85 max-w-[500px] font-light">
+                {proj.desc}
+              </p>
+            </div>
 
-        {/* Circular thumbnail switcher */}
-        <div className="flex flex-col gap-5 sm:flex-row sm:justify-center sm:w-full" role="tablist" aria-label="Select project">
-          {PROJECTS.map((p, i) => (
-            <button
-              key={p.id}
-              onClick={() => handleSwitch(i)}
-              className={`work__thumb w-[72px] h-[72px] rounded-full overflow-hidden cursor-pointer border-2 transition-all duration-300 shadow-[0_0_0_0_rgba(212,75,30,0)] relative group ${i === active ? 'border-[#d44b1e] scale-[1.18] shadow-[0_0_0_6px_rgba(212,75,30,0.2)]' : 'border-transparent hover:shadow-[0_0_0_4px_rgba(212,75,30,0.25)]'}`}
-              role="tab"
-              aria-selected={i === active}
-              aria-label={`View project: ${p.title}`}
-              id={`work-thumb-${i}`}
+            {/* View Project Button with Background Color */}
+            <button 
+              onClick={handleViewAllProjects}
+              className="work-cta-button inline-flex items-center gap-3 font-sans text-[0.85rem] font-medium tracking-wide text-white bg-[#d44b1e] border-none px-8 py-3 rounded-full cursor-pointer transition-all duration-300 hover:bg-[#e85c2a] hover:-translate-y-1 hover:shadow-lg"
             >
-              <img src={p.thumb} alt={p.title} className="w-full h-full object-cover" />
-              <div className={`absolute inset-0 bg-[#0a0a0a]/40 rounded-full transition-all duration-300 ${i === active ? 'bg-transparent' : 'group-hover:bg-transparent'}`} />
+              View All Projects
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 group-hover:translate-x-1">
+                <path d="M2 14L14 2M14 2H6M14 2V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
-          ))}
+          </div>
         </div>
 
-        {/* Project info */}
-        <div className="text-white sm:text-center">
-          <p ref={labelRef} className="font-sans text-[0.7rem] tracking-[0.3em] uppercase text-white/50 mb-6">
-            Selected Work &nbsp;/&nbsp; {String(active + 1).padStart(2, '0')} — {String(PROJECTS.length).padStart(2, '0')}
-          </p>
-
-          <h2 ref={titleRef} className="font-serif text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[1.05] tracking-tighter mb-8 max-w-[800px] sm:mx-auto">
-            {proj.title}
-            <br />
-            <em className="italic font-normal">{proj.subtitle}</em>
-          </h2>
-
-          <p ref={descRef} className="text-base font-light leading-[1.7] max-w-[480px] text-white/70 mb-10 sm:mx-auto">
-            {proj.desc}
-          </p>
-
-          <button 
-            className="inline-flex items-center gap-3 font-sans text-[0.85rem] font-medium tracking-wide text-white bg-[#d44b1e] border-none px-8 py-[0.85rem] rounded-full cursor-pointer transition-all duration-300 hover:bg-[#e85c2a] hover:-translate-y-[2px] outline-none"
-            aria-label={`View ${proj.title} case study`}
-          >
-            View Case Study
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
+        {/* Decorative Elements */}
+        <div className="absolute bottom-8 left-8 text-white/20">
+          <div className="text-[8rem] font-serif font-light leading-none opacity-30">
+            {String(active + 1).padStart(2, '0')}
+          </div>
         </div>
       </div>
     </section>

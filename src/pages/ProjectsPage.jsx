@@ -51,15 +51,147 @@ export default function ProjectsPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const ctx = gsap.context(() => {
-      // Heading reveal
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Filter buttons entrance animation
+      gsap.from('.filter-button', {
+        y: -20, opacity: 0, duration: 0.8,
+        stagger: 0.1, ease: 'power3.out', delay: 0.1,
+        onComplete: () => {
+          // Ensure buttons are visible after animation
+          gsap.set('.filter-button', { opacity: 1, y: 0 });
+        }
+      });
+      
+      // Heading reveal with scale effect
       gsap.from(headRef.current, {
-        y: 60, opacity: 0, duration: 1, ease: 'power4.out', delay: 0.1,
+        y: 80, opacity: 0, scale: 0.95, 
+        duration: 1.2, ease: 'power4.out', delay: 0.4,
       });
-      // Grid items stagger
+      
+      // Grid items entrance with stagger
       gsap.from('.project-card-item', {
-        y: 50, opacity: 0, duration: 0.8,
-        stagger: 0.1, ease: 'power3.out', delay: 0.3,
+        y: 60, opacity: 0, scale: 0.9, 
+        duration: 0.8,
+        stagger: 0.12, ease: 'back.out(1.2)', delay: 0.6,
       });
+      
+      // Scroll-triggered animations for project cards
+      gsap.utils.toArray('.project-card-item').forEach((card, index) => {
+        gsap.to(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play reverse play reverse',
+            scrub: 1,
+          },
+          y: -10,
+          scale: 1.02,
+          duration: 0.3,
+          ease: 'power2.inOut',
+        });
+      });
+      
+      // Parallax effect for project images
+      gsap.utils.toArray('.project-card-item img').forEach((img) => {
+        gsap.to(img, {
+          scrollTrigger: {
+            trigger: img,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 2,
+          },
+          y: -20,
+          scale: 1.1,
+          ease: 'none',
+        });
+      });
+      
+      // Category text animation on scroll
+      gsap.utils.toArray('.project-category').forEach((category) => {
+        gsap.from(category, {
+          scrollTrigger: {
+            trigger: category,
+            start: 'top 90%',
+            toggleActions: 'play none none reverse',
+          },
+          x: -20, opacity: 0, duration: 0.6, ease: 'power2.out',
+        });
+      });
+      
+      // Project title animation on scroll
+      gsap.utils.toArray('.project-title').forEach((title) => {
+        gsap.from(title, {
+          scrollTrigger: {
+            trigger: title,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          y: 15, opacity: 0, duration: 0.7, ease: 'power3.out',
+        });
+      });
+      
+      // Enhanced hover animations for project cards
+      gsap.utils.toArray('.project-card-item').forEach((card) => {
+        const img = card.querySelector('img');
+        const overlay = card.querySelector('.absolute');
+        const title = card.querySelector('.project-title');
+        
+        // Hover animation
+        card.addEventListener('mouseenter', () => {
+          gsap.to(img, {
+            scale: 1.15,
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+          gsap.to(overlay, {
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+          gsap.to(title, {
+            y: -5,
+            color: '#d44b1e',
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+          gsap.to(card, {
+            y: -8,
+            boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+            duration: 0.4,
+            ease: 'power3.out',
+          });
+        });
+        
+        // Leave animation
+        card.addEventListener('mouseleave', () => {
+          gsap.to(img, {
+            scale: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+          });
+          gsap.to(overlay, {
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+          gsap.to(title, {
+            y: 0,
+            color: '#1a1a1a',
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+          gsap.to(card, {
+            y: 0,
+            boxShadow: '0 0px 0px rgba(0,0,0,0)',
+            duration: 0.4,
+            ease: 'power3.out',
+          });
+        });
+      });
+      
     }, containerRef);
     return () => ctx.revert();
   }, [activeFilter]);
@@ -72,7 +204,7 @@ export default function ProjectsPage() {
           {FILTERS.map(f => (
             <button
               key={f}
-              className={`px-6 py-2.5 rounded-full border border-black/10 text-[0.8rem] font-medium tracking-wide transition-all duration-300 hover:bg-[#d44b1e] hover:text-white hover:border-[#d44b1e] outline-none sm:px-4 sm:py-2 ${activeFilter === f ? 'bg-[#d44b1e] text-white border-[#d44b1e]' : 'bg-transparent text-[#1a1a1a]'}`}
+              className={`filter-button px-6 py-2.5 rounded-full border border-black/10 text-[0.8rem] font-medium tracking-wide transition-all duration-300 hover:bg-[#d44b1e] hover:text-white hover:border-[#d44b1e] outline-none sm:px-4 sm:py-2 ${activeFilter === f ? 'bg-[#d44b1e] text-white border-[#d44b1e]' : 'bg-transparent text-[#1a1a1a]'}`}
               onClick={() => setActiveFilter(f)}
             >
               {f}
@@ -97,7 +229,7 @@ export default function ProjectsPage() {
           <div
             key={proj.id}
             className="project-card-item group cursor-pointer"
-            onClick={() => navigate(`/projects/${proj.id}`)}
+            // onClick={() => navigate(`/projects/${proj.id}`)}
             role="article"
             aria-label={proj.title}
           >
@@ -109,12 +241,12 @@ export default function ProjectsPage() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-[#0a0a0a]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-white font-sans text-sm font-medium tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-500">View project ↗</span>
+                {/* <span className="text-white font-sans text-sm font-medium tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-500">View project ↗</span> */}
               </div>
             </div>
             <div className="mt-6">
-              <span className="font-sans text-[0.65rem] tracking-[0.2em] uppercase text-[#666]">{proj.category}</span>
-              <h2 className="font-serif text-2xl font-medium text-[#1a1a1a] mt-2 group-hover:text-[#d44b1e] transition-colors duration-300">{proj.title}</h2>
+              <span className="project-category font-sans text-[0.65rem] tracking-[0.2em] uppercase text-[#666]">{proj.category}</span>
+              <h2 className="project-title font-serif text-2xl font-medium text-[#1a1a1a] mt-2 group-hover:text-[#d44b1e] transition-colors duration-300">{proj.title}</h2>
             </div>
           </div>
         ))}

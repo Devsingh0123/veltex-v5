@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function AboutPage() {
   const containerRef = useRef(null);
@@ -7,18 +8,120 @@ export default function AboutPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const ctx = gsap.context(() => {
-      gsap.from('.about-page-line', {
-        y: '100%', opacity: 0, duration: 1,
-        stagger: 0.12, ease: 'power4.out', delay: 0.15,
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // About label entrance
+      gsap.from('.about-label', {
+        opacity: 0, y: -20, duration: 0.8,
+        ease: 'power2.out', delay: 0.2,
       });
-      gsap.from('.about-page-scatter-img', {
-        y: 30, opacity: 0, scale: 0.95, duration: 0.9,
-        stagger: 0.15, ease: 'power3.out', delay: 0.3,
+      
+      // Hero text - clean reveal
+      gsap.utils.toArray('.about-page-line').forEach((line, index) => {
+        gsap.from(line, {
+          y: 80, opacity: 0, duration: 0.9,
+          ease: 'power3.out', delay: 0.4 + (index * 0.15),
+        });
       });
-      gsap.from('.about-page-body-p', {
-        y: 25, opacity: 0, duration: 0.8,
-        stagger: 0.1, ease: 'power3.out', delay: 0.5,
+      
+      // Image collage - clean staggered entrance
+      gsap.utils.toArray('.about-page-scatter-img').forEach((img, index) => {
+        gsap.from(img, {
+          opacity: 0, 
+          y: 40,
+          scale: 0.9,
+          duration: 0.8,
+          ease: 'power2.out', 
+          delay: 0.8 + (index * 0.1),
+        });
       });
+      
+      // Subtitle entrance
+      gsap.from('.about-subtitle', {
+        opacity: 0, y: 30, duration: 0.8,
+        ease: 'power3.out', delay: 1.2,
+      });
+      
+      // Body paragraphs - alternating entrance
+      gsap.utils.toArray('.about-page-body-p').forEach((p, index) => {
+        gsap.from(p, {
+          opacity: 0, y: 25, duration: 0.7,
+          ease: 'power2.out', delay: 1.4 + (index * 0.15),
+        });
+      });
+      
+      // Stats - clean entrance
+      gsap.utils.toArray('.about-stat-item').forEach((item, index) => {
+        gsap.from(item, {
+          opacity: 0, y: 30, scale: 0.95,
+          duration: 0.6,
+          ease: 'power2.out', 
+          delay: 1.8 + (index * 0.08),
+        });
+      });
+      
+      // Scroll-triggered parallax for images
+      gsap.utils.toArray('.about-page-scatter-img').forEach((img, index) => {
+        gsap.to(img, {
+          scrollTrigger: {
+            trigger: img,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+          y: -20 - (index * 5),
+          ease: 'none',
+        });
+      });
+      
+      // Stats counting animation
+      gsap.utils.toArray('.about-stat-number').forEach((stat) => {
+        const finalValue = stat.innerText;
+        const isPlus = finalValue.includes('+');
+        const numValue = parseFloat(finalValue.replace(/[^0-9.]/g, ''));
+        
+        gsap.from(stat, {
+          scrollTrigger: {
+            trigger: stat,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          innerHTML: 0,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate: function() {
+            const progress = this.progress();
+            const currentValue = Math.floor(numValue * progress);
+            stat.innerText = currentValue + (isPlus ? '+' : '');
+          },
+          onComplete: function() {
+            stat.innerText = finalValue;
+          }
+        });
+      });
+      
+      // Simple hover effects for images
+      gsap.utils.toArray('.about-page-scatter-img').forEach((img) => {
+        img.addEventListener('mouseenter', () => {
+          gsap.to(img, {
+            scale: 1.03,
+            boxShadow: '0 15px 30px rgba(0,0,0,0.15)',
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+        
+        img.addEventListener('mouseleave', () => {
+          gsap.to(img, {
+            scale: 1,
+            boxShadow: '0 0px 0px rgba(0,0,0,0)',
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+        });
+      });
+      
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -27,7 +130,7 @@ export default function AboutPage() {
     <div ref={containerRef} className="pt-44 pb-32 px-[6vw] bg-[#f5f0e8] min-h-screen text-[#1a1a1a] sm:pt-32">
       {/* Hero text */}
       <div className="max-w-[1200px] mb-32 sm:mb-20">
-        <div className="font-sans text-[0.7rem] tracking-[0.3em] uppercase text-[#666] mb-10">(About)</div>
+        <div className="about-label font-sans text-[0.7rem] tracking-[0.3em] uppercase text-[#666] mb-10">(About)</div>
         <h1 className="font-serif text-[clamp(2.5rem,5.5vw,6.5rem)] font-medium leading-[1.1] tracking-tighter text-[#1a1a1a]">
           {['Veltex is a digital', 'design studio based in', 'Singapore & Hong Kong.'].map((line, i) => (
             <div key={i} className="overflow-hidden">
@@ -63,7 +166,7 @@ export default function AboutPage() {
 
       {/* Body content */}
       <div className="max-w-[1000px]">
-        <h2 className="font-serif text-[clamp(1.8rem,3vw,3.5rem)] font-medium leading-[1.2] mb-20 text-[#1a1a1a] sm:mb-12">
+        <h2 className="about-subtitle font-serif text-[clamp(1.8rem,3vw,3.5rem)] font-medium leading-[1.2] mb-20 text-[#1a1a1a] sm:mb-12">
           Veltex is a digital design studio specialising in commercially
           intelligent experiences that enhance business performance.
         </h2>
@@ -90,8 +193,8 @@ export default function AboutPage() {
             { num: '18',  label: 'Markets reached' },
             { num: '60+', label: 'Brand clients' },
           ].map((s) => (
-            <div key={s.label}>
-              <div className="font-serif text-5xl font-bold text-[#1a1a1a] mb-2 tracking-tighter">{s.num}</div>
+            <div key={s.label} className="about-stat-item">
+              <div className="about-stat-number font-serif text-5xl font-bold text-[#1a1a1a] mb-2 tracking-tighter">{s.num}</div>
               <div className="font-sans text-[0.65rem] tracking-[0.2em] uppercase text-[#666]">{s.label}</div>
             </div>
           ))}

@@ -36,9 +36,9 @@ export default function Hero({ navRef }) {
     if (!titleRef.current) return;
     const el = titleRef.current;
     const lines = [
-      { text: 'We build', italic: false },
-      { text: 'digital', italic: true },
-      { text: 'futures.', italic: false },
+      { text: 'Unmatched Reach', italic: false },
+      { text: 'Infinite', italic: true },
+      { text: 'Possibilities.', italic: false },
     ];
     el.innerHTML = '';
     lines.forEach((line) => {
@@ -122,7 +122,7 @@ export default function Hero({ navRef }) {
         {/* Background image with parallax */}
         <div
           ref={bgRef}
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80')] bg-cover bg-center origin-center will-change-transform"
+          className="hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&auto=format&fit=crop&q=80')] bg-cover bg-center origin-center will-change-transform"
           aria-hidden="true"
         />
 
@@ -136,21 +136,20 @@ export default function Hero({ navRef }) {
             className="font-sans text-[0.75rem] font-medium tracking-[0.25em] uppercase text-white/60 mb-8 opacity-0"
             aria-label="Veltex — Digital Design Studio"
           >
-            Veltex &nbsp;—&nbsp; Digital Design Studio
+            Veltex &nbsp;—&nbsp; Empowering Every Brand to Shine
           </p>
 
           <h1
             ref={titleRef}
             className="font-serif text-[clamp(3.5rem,8vw,9rem)] font-medium text-white leading-[0.95] tracking-tighter"
-            aria-label="We build digital futures."
+            aria-label="Unmatched Reach, Infinite Possibilities"
           />
 
           <p
             ref={subRef}
             className="font-sans text-[clamp(1rem,1.5vw,1.25rem)] font-light text-white/75 mt-10 tracking-wide leading-[1.6] max-w-[550px] mx-auto opacity-0"
           >
-            We craft immersive digital experiences that redefine how
-            brands connect with their world.
+            We create strategies that can make a difference
           </p>
         </div>
 
