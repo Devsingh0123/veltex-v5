@@ -2,18 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html",
-      "has": [
-        {
-          "headers": [
-            {
-              "key": "accept",
-              "type": "Wildcard",
-              "value": "*text/html*"
-            }
-          ]
-        }
-      ]
+      "destination": "/index.html"
     }
   ],
   "headers": [
