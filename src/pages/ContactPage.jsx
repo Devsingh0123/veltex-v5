@@ -66,7 +66,7 @@ export default function ContactPage() {
           </h1>
           <div className="flex flex-col gap-6 mt-8 sm:mt-6">
             {[
-              { label: 'Email', value: 'lavanya@veltexs.com' },
+              { label: 'Email', value: 'Hello@veltexs.com' },
               { label: 'Phone', value: '+91 9485628238' },
               { label: 'Based in', value: '711, Plot A09, ITL Towers, Netaji Subhash Place, Pitampura,Delhi (110034)' },
               { label: 'Open to', value: 'Global Projects' },

@@ -82,14 +82,14 @@ export default function Work() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#ffffff] text-[#0f172a] pt-8  "
+      className="relative bg-[#ffffff] text-[#0f172a] pt-14  "
       id="work"
       aria-label="Selected work"
     ><div className=" px-[6vw]  overflow-hidden">
         <p className="work-label font-sans text-[1rem] font-bold tracking-[0.3em] uppercase text-[#666] py-4 ">(Our Work)</p>
 
         {/* Large editorial headline - Optimized for Fluid Wrapping */}
-        <h2 className="font-serif text-[clamp(2.2rem,5vw,6rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[#0f172a] mb-10">
+        <h2 className="font-serif text-[clamp(2.2rem,5vw,6rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[#0f172a] mt-4">
           <span ref={addWordRef} className="work-headline-word inline-block mr-2">We deliver integrated marketing</span>
           <span ref={addWordRef} className="work-headline-word inline-block mr-2">solutions —</span>
           <em ref={addWordRef} className="work-headline-word italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] inline-block py-1 pr-2 drop-shadow-sm">not isolated services.</em>

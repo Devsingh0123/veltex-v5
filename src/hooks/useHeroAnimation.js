@@ -28,14 +28,15 @@ export function useHeroAnimation({ overlayRef, logoRef, titleCharsRef, eyebrowRe
       // 2. Logo Entrance - Snappier elastic reveal
       if (logoRef?.current) {
         tl.fromTo(logoRef.current,
-          { scale: 0.8, opacity: 0, filter: 'blur(30px) brightness(1.5)', skewX: 5 },
-          { 
-            scale: 1, 
-            opacity: 1, 
-            filter: 'blur(0px) brightness(1)', 
+          { scale: 0, rotation: -720, opacity: 0, filter: 'blur(30px) brightness(1.5)', skewX: 5 },
+          {
+            scale: 1,
+            rotation: 360,
+            opacity: 1,
+            filter: 'blur(0px) brightness(1)',
             skewX: 0,
-            duration: 1.2, 
-            ease: 'expo.out' // Switched from elastic to expo for smoother, faster feel
+            duration: 1.8,  // Increased duration for multiple rotations to look smooth
+            ease: 'expo.out'
           },
           '0.1'
         );

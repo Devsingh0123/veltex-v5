@@ -45,7 +45,7 @@ export default function Marquee({ speed = 150 }) {
           <div key={i} className="flex items-center shrink-0 space-x-7 px-3">
             {/* Exact Screenshot Replica Style */}
             <span
-              className="font-extrabold text-[clamp(1.2rem,2.5vw,1.7rem)] font-mono uppercase whitespace-nowrap"
+              className="font-extrabold text-[clamp(1rem,1.5vw,1.3rem)] font-mono uppercase whitespace-nowrap"
               style={{
                 WebkitTextStroke: '0.8px #484646fa',
                 color: 'transparent',
@@ -61,7 +61,7 @@ export default function Marquee({ speed = 150 }) {
               <img
                 src="/vLogo.png"
                 alt="Veltex Logo"
-                className="w-8 h-8 object-cover animate-logoPulse"
+                className="w-7 h-7 object-cover animate-logoPulse"
               />
             </div>
           </div>

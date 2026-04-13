@@ -43,7 +43,7 @@ export default function Process() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#ffffff] text-[#0f172a] py-8 px-[6vw]  overflow-hidden"
+      className="relative bg-[#ffffff] text-[#0f172a] py-8 px-[6vw]  overflow-hidden py-14"
       id="process"
       aria-label="Our process"
     >
@@ -51,7 +51,7 @@ export default function Process() {
 
       <div className="">
         <p className="process-label font-sans text-[1rem] font-bold tracking-[0.3em] uppercase text-[#666] py-4">(Our Process)</p>
-        <h2 className="process-headline font-serif text-[clamp(2.8rem,4.5vw,5rem)] font-medium leading-[1.2] tracking-[-0.025em] max-w-[900px]">
+        <h2 className="process-headline font-serif text-[clamp(2.8rem,4.5vw,5rem)] font-medium leading-[1.2] tracking-[-0.025em] max-w-[900px] mt-4">
           One strategy. <span className="italic font-normal text-[#0066cc]">Every</span> channel. <span className="italic font-normal text-[#0066cc]">No exceptions.</span>
         </h2>
         <p className="process-description font-sans text-[clamp(1rem,1.2vw,1.125rem)] leading-[1.75] text-[#555] max-w-[600px] mt-10 font-light">
@@ -59,19 +59,21 @@ export default function Process() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-0" role="list">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 mt-20" role="list">
         {STEPS.map((step, index) => (
           <div
             key={step.num}
-            className="process-step grid  gap-12 items-start py-3 border-t border-black/12 grid-cols-1 sm:gap-6 "
+            className="process-step group flex flex-col gap-6 pt-10 border-t border-black/10 transition-colors duration-500 hover:border-[#0066cc]/30"
             role="listitem"
             aria-label={`Step ${step.num}: ${step.title}`}
           >
-            <div className="process-number font-serif text-[4.5rem] font-bold leading-none text-black/12 tracking-tighter" aria-hidden="true">{step.num}</div>
-            <div className="process-step-content">
-              <h3 className="process-step-title font-serif text-[clamp(1.5rem,2.5vw,2.5rem)] font-medium leading-tight mb-4 text-[#0f172a]">{step.title}</h3>
-              <h4 className="process-step-heading font-sans text-[clamp(1rem,1.2vw,1.125rem)] font-medium leading-[1.4] mb-3 text-[#0066cc]">{step.heading}</h4>
-              <p className="process-step-desc font-sans text-base leading-[1.75] font-light text-[#555] max-w-[600px]">{step.desc}</p>
+            <div className="process-number font-serif text-[4.5rem] font-bold leading-none text-black/10 tracking-tighter group-hover:text-[#0066cc]/20 transition-colors duration-500" aria-hidden="true">
+              {step.num}
+            </div>
+            <div className="process-step-content flex flex-col gap-4">
+              <h3 className="process-step-title font-serif text-[clamp(1.5rem,2.5vw,2.2rem)] font-medium leading-tight text-[#0f172a]">{step.title}</h3>
+              <h4 className="process-step-heading font-sans text-sm font-bold tracking-widest uppercase text-[#0066cc] opacity-80">{step.heading}</h4>
+              <p className="process-step-desc font-sans text-base leading-relaxed font-light text-[#555]">{step.desc}</p>
             </div>
           </div>
         ))}

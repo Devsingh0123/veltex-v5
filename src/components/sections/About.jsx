@@ -20,17 +20,17 @@ export default function About() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#ffffff] text-[#0f172a]  px-[6vw] py-8 overflow-hidden"
+      className="relative bg-[#ffffff] text-[#0f172a]  px-[6vw] py-14 overflow-hidden"
       id="about"
       aria-label="About Veltex"
     >
       {/* Subtle V bg */}
-      <VBackgroundPattern color="#0f172a" opacity={0.025} className="v-bg-pattern" />
+      <VBackgroundPattern color="#0f172a" opacity={0.05} className="v-bg-pattern" />
 
-      <p className="about-label font-sans text-[1rem] font-bold tracking-[0.3em] uppercase text-[#666]">(About us)</p>
+      <p className="about-label font-sans text-[1rem] font-bold tracking-[0.3em] uppercase text-[#666] ">(About us)</p>
 
       {/* Large editorial headline */}
-      <h2 className="font-serif text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[#0f172a] max-w-[80vw]">
+      <h2 className="font-serif text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[1.08] tracking-[-0.025em] text-[#0f172a] max-w-[80vw] mt-4">
         <span className="inline-block overflow-hidden align-bottom">
           <span ref={addWordRef} className="inline-block">We make bold</span>
         </span>{' '}

@@ -28,7 +28,7 @@ export default function ScrollReel({ text = 'VELTEX', bg = '#f50b0bff', color = 
     return () => ctx.revert();
   }, []);
 
-  const repeated = Array(6).fill(text).join(' · ');
+  const repeated = Array(200).fill(text).join(' · ');
 
   return (
     <div
@@ -41,7 +41,7 @@ export default function ScrollReel({ text = 'VELTEX', bg = '#f50b0bff', color = 
         className="flex whitespace-nowrap will-change-transform"
       >
         <span
-          className="font-serif text-[clamp(5rem,12vw,14rem)] font-black leading-none opacity-[0.06] select-none tracking-tighter"
+          className="font-serif text-[clamp(1.3rem,2vw,1.75rem)] font-black leading-none opacity-[0.06] select-none tracking-tighter"
           style={{ color: color }}
         >
           {repeated}

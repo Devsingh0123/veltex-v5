@@ -159,11 +159,11 @@ export default function InsightsPage() {
 
             <div className="why-cta-element flex flex-col items-center gap-8">
               <button className="bg-[#8cc63f] hover:bg-white hover:text-[#0f172a] text-[#0f172a] font-sans font-bold text-lg px-12 py-5 rounded-full transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(140,198,63,0.4)]">
-                Start the conversation today
+                <a href="https://wa.me/+919485628238"> Start the conversation today</a>
               </button>
 
-              <a href="https://www.veltex.com" target="_blank" rel="noreferrer" className="font-sans text-sm tracking-widest text-[#00aaff] hover:text-white transition-colors uppercase font-bold">
-                🌐 www.veltex.com
+              <a href="https://www.veltexs.com" target="_blank" rel="noreferrer" className="font-sans text-sm tracking-widest text-[#00aaff] hover:text-white transition-colors uppercase font-bold">
+                🌐 www.veltexs.com
               </a>
             </div>
 

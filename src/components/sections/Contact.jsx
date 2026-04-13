@@ -9,7 +9,7 @@ export default function Contact() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#ffffff] text-[#0f172a] py-8 px-[6vw] overflow-hidden "
+      className="relative bg-[#ffffff] text-[#0f172a] py-14 px-[6vw] overflow-hidden "
       id="contact"
       aria-label="Contact Veltex"
     >
@@ -19,7 +19,7 @@ export default function Contact() {
             (Get in touch)
           </p>
 
-          <h2 className="contact-heading font-serif text-[clamp(2.5rem,4.5vw,6rem)] font-medium leading-[1.05] tracking-[-0.025em] mb-12 text-[#0f172a]">
+          <h2 className="contact-heading font-serif text-[clamp(2.5rem,4.5vw,6rem)] font-medium leading-[1.05] tracking-[-0.025em] mb-12 mt-4 text-[#0f172a]">
             For project enquiries,
             <br />
             <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] drop-shadow-sm pr-2 py-1">collaborations,</em>
@@ -29,7 +29,7 @@ export default function Contact() {
 
           <div className="contact-actions flex items-center gap-4 flex-wrap">
             <a
-              href="mailto:lavanya@veltexs.com"
+              href="mailto:Hello@veltexs.com"
               className="contact-submit-btn inline-flex items-center gap-2 font-sans text-[0.9rem] font-medium text-white bg-gradient-to-r from-[#0066cc] to-[#00aaff] px-9 py-4 rounded-full border-none cursor-pointer transition-all duration-300 hover:from-[#00aaff] hover:to-[#8cc63f] hover:-translate-y-[2px] tracking-wide outline-none shadow-[0_4px_16px_rgba(0,170,255,0.3)] hover:shadow-[0_8px_24px_rgba(140,198,63,0.4)]"
               aria-label="Send an enquiry email to Veltex"
               id="contact-enquiry-btn"
@@ -58,7 +58,7 @@ export default function Contact() {
           {/* Subtle info row */}
           <div className="contact-info-row mt-16 pt-8 border-t border-black/10 flex gap-12 flex-col gap-6">
             {[
-              { label: 'Email', value: 'lavanya@veltexs.com' },
+              { label: 'Email', value: 'Hello@veltexs.com' },
               { label: 'Phone', value: '+91 9485628238' },
               { label: 'Based in', value: '711, Plot A09, ITL Towers, Netaji Subhash Place, Pitampura,Delhi (110034)' },
               { label: 'Open to', value: 'Global Projects' },
