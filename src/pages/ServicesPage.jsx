@@ -21,14 +21,19 @@ import mediaImage7 from "../assets/service/media/vedanta log.png"
 import mediaImage8 from "../assets/service/media/wadhwani logo.png"
 import mediaImage9 from "../assets/service/media/wotr logo.png"
 import techImage1 from "../assets/service/tech/Airtel-logo.png"
-import techImage2 from "../assets/service/tech/digitantra logo.png"
-import techImage3 from "../assets/service/tech/golden logo.png"
+import techImage2 from "../assets/service/tech/du.png"
+import techImage3 from "../assets/service/tech/etisalat.png"
 import techImage4 from "../assets/service/tech/Google-Logo-PNG-Picture.png"
-import techImage5 from "../assets/service/tech/hamada logo.png"
-import techImage6 from "../assets/service/tech/hitech logo.png"
-import techImage7 from "../assets/service/tech/my account logo.png"
-import techImage8 from "../assets/service/tech/Reliance_Jio_Logo_(October_2015).png"
-import techImage9 from "../assets/service/tech/Vi-Logo-Vector-300x300.png"
+import techImage5 from "../assets/service/tech/my account logo.png"
+import techImage6 from "../assets/service/tech/Reliance_Jio_Logo_(October_2015).png"
+import techImage7 from "../assets/service/tech/Vi-Logo-Vector-300x300.png"
+import cpaasImage1 from "../assets/service/cpaas/astrotring.png"
+import cpaasImage2 from "../assets/service/cpaas/digitantra logo.png"
+import cpaasImage3 from "../assets/service/cpaas/golden logo.png"
+import cpaasImage4 from "../assets/service/cpaas/mobisastra.png"
+import cpaasImage5 from "../assets/service/cpaas/sportrz.jpg"
+
+
 
 
 
@@ -102,8 +107,7 @@ const SERVICES_DATA = {
             { name: 'vedanta logo', src: techImage5 },
             { name: 'Vi-Logo-Vector', src: techImage6 },
             { name: 'wadhwani logo', src: techImage7 },
-            { name: 'wotr logo', src: techImage8 },
-            { name: 'wotr logo', src: techImage9 },
+
 
         ],
         accordions: [
@@ -119,16 +123,11 @@ const SERVICES_DATA = {
         title: "Communications Platform as a Service (CPaaS)",
         description: "The digital era offers businesses unprecedented opportunities to build meaningful relationships with their customers.",
         logos: [
-            { name: 'wotr logo', src: techImage1 },
-            { name: 'reliance jio logo', src: techImage2 },
-            { name: 'SECI logo', src: techImage3 },
-            { name: 'soft logo', src: techImage4 },
-            { name: 'vedanta logo', src: techImage5 },
-            { name: 'Vi-Logo-Vector', src: techImage6 },
-            { name: 'wadhwani logo', src: techImage7 },
-            { name: 'wotr logo', src: techImage8 },
-            { name: 'wotr logo', src: techImage9 },
-
+            { name: 'astrotring', src: cpaasImage1 },
+            { name: 'digitantra logo', src: cpaasImage2 },
+            { name: 'golden logo', src: cpaasImage3 },
+            { name: 'mobisastra', src: cpaasImage4 },
+            { name: 'sportrz', src: cpaasImage5 }
         ],
         accordions: [
             { title: "Transforming Customer Engagement in the Digital Age", content: "The digital era offers businesses unprecedented opportunities to build meaningful relationships with their customers. Success requires a strategic approach across all key dimensions." },

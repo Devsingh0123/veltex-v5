@@ -78,15 +78,15 @@ const ThreeDEffect = () => {
   );
 };
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 export default function Nav({ navRef }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuCardRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const isHome = location.pathname === '/';
   const isProjects = location.pathname === '/projects';
-  // const ctaLabel = isProjects ? 'Contact' : isHome ? 'Contact' : 'Projects';
   const ctaLabel = isProjects ? 'Contact' : 'Contact';
   const ctaHref = isProjects ? '/contact' : "/contact";
 
@@ -95,29 +95,6 @@ export default function Nav({ navRef }) {
       gsap.to(navRef.current, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' });
     }
   }, [isHome, navRef]);
-
-  useEffect(() => {
-    if (!menuCardRef.current) return;
-    let ctx = gsap.context(() => {
-      if (menuOpen) {
-        const tl = gsap.timeline();
-        tl.fromTo(
-          menuCardRef.current,
-          { opacity: 0, y: 40, scale: 0.95, rotationX: -25, rotationY: 15, transformPerspective: 1000 },
-          { opacity: 1, y: 0, scale: 1, rotationX: 0, rotationY: 0, duration: 0.85, ease: 'elastic.out(1,0.85)' }
-        );
-        tl.fromTo(
-          '.nav-stagger-item',
-          { y: 25, opacity: 0, rotationX: -10 },
-          { y: 0, opacity: 1, rotationX: 0, duration: 0.6, stagger: 0.08, ease: 'power3.out' },
-          '-=0.6'
-        );
-      } else {
-        gsap.to(menuCardRef.current, { opacity: 0, y: 30, scale: 0.96, rotationX: 10, duration: 0.4, ease: 'power3.inOut' });
-      }
-    }, menuCardRef);
-    return () => ctx.revert();
-  }, [menuOpen]);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -139,66 +116,93 @@ export default function Nav({ navRef }) {
     navigate(href);
   };
 
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+      rotateX: -15,
+      transition: {
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1], // Smooth out expo
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    closed: { opacity: 0, x: -10, y: 10 },
+    open: { opacity: 1, x: 0, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  };
+
   return (
     <>
-      {/* 3D Background - Enhanced with visible top-left lighting */}
-      {/* <div className="fixed inset-0 z-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 4], fov: 50 }} gl={{ alpha: true, powerPreference: 'high-performance' }}>
-          <ambientLight intensity={0.6} />
-          <pointLight position={[-8, 8, 8]} intensity={4} color="#0066cc" />
-          <pointLight position={[-8, -8, 8]} intensity={3} color="#8cc63f" />
-          <spotLight position={[-5, 5, 5]} intensity={3} angle={0.5} penumbra={1} color="#ffffff" />
-          <directionalLight position={[-10, 10, 5]} intensity={2} color="#00aaff" />
-          <ThreeDEffect />
-        </Canvas>
-      </div> */}
-
       {/* Navigation Container */}
       <div
         ref={navRef}
         id="main-nav-container"
         className="fixed left-0 right-0 z-[9999] flex flex-col items-center gap-4 px-4 bottom-4"
       >
-        {/* Menu Card Overlay - Enhanced 3D Style */}
-        {menuOpen && (
-          <div
-            ref={menuCardRef}
-            className="w-full max-w-[500px] bg-white/20 backdrop-blur-xl border-2 border-white/40 rounded-[32px] p-4 shadow-[0_20px_80px_rgba(255,255,255,0.15)] flex flex-col gap-3 origin-bottom z-[9998]"
-            style={{
-              transformStyle: 'preserve-3d',
-              perspective: '1000px',
-              transform: 'translateY(-2px) scale(1.02)',
-              boxShadow: '0 16px 64px rgba(255,255,255,0.15), inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 8px rgba(0,0,0,0.2)',
-            }}
-          >
-            <div className="flex flex-col gap-1">
-              {PRIMARY_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => go(link.href)}
-                  className="nav-stagger-item group flex justify-between items-center py-1 border-b border-white/20 text-left transition-all duration-300 hover:translate-x-3 hover:rotate-y-5 hover:pl-4 last:border-0 outline-none"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  <span className="font-sans text-xl font-bold text-black transition-colors group-hover:text-black/90">
+        {/* Menu Card Overlay - Enhanced Premium Style */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              variants={menuVariants}
+              initial="closed"
+              animate="open"
+              exit="closed"
+              className="w-full max-w-[500px] bg-white/20 backdrop-blur-xl border-2 border-white/40 rounded-[32px] p-4 shadow-[0_20px_80px_rgba(255,255,255,0.15)] flex flex-col gap-3 origin-bottom z-[9998]"
+              style={{
+                perspective: '1000px',
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              <div className="flex flex-col gap-1">
+                {PRIMARY_LINKS.map((link) => (
+                  <motion.button
+                    key={link.href}
+                    variants={itemVariants}
+                    onClick={() => go(link.href)}
+                    className="group flex justify-between items-center py-1 border-b border-white/20 text-left transition-all duration-300 outline-none"
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    <span className="font-sans text-xl font-bold text-black transition-all group-hover:translate-x-3 group-hover:pl-4">
+                      {link.label}
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[1.3rem] text-black/80 opacity-0 -translate-x-6 transition-all group-hover:opacity-100 group-hover:translate-x-0">↗</span>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-x-5 gap-y-1">
+                {SECONDARY_LINKS.map((link) => (
+                  <motion.button
+                    key={link.href}
+                    variants={itemVariants}
+                    onClick={() => go(link.href)}
+                    className="font-sans text-[0.75rem] font-semibold text-black/70 tracking-widest uppercase hover:text-black/90 transition-all duration-300 hover:scale-105 outline-none"
+                  >
                     {link.label}
-                  </span>
-                  <span className="text-[1.3rem] text-black/80 opacity-0 -translate-x-6 transition-all group-hover:opacity-100 group-hover:translate-x-0">↗</span>
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-x-5 gap-y-1 nav-stagger-item pt-1 border-t border-white/20">
-              {SECONDARY_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => go(link.href)}
-                  className="font-sans text-[0.75rem] font-semibold text-black/70 tracking-widest uppercase hover:text-black/90 transition-all duration-300 hover:scale-105 outline-none"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         {/* Bottom Nav Row */}
         <div className="flex items-center justify-center gap-4 sm:gap-5 w-full pointer-events-none">
