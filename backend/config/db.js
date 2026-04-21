@@ -5,14 +5,25 @@ dotenv.config();
 
 // 1. Database se connect karne ke liye "Sequelize" ka object banaya
 export const sequelize = new Sequelize(
-  process.env.DB_NAME,     // Database ka naam
-  process.env.DB_USER,     // Username
-  process.env.DB_PASSWORD, // Password
+  process.env.DB_NAME,     
+  process.env.DB_USER,     
+  process.env.DB_PASSWORD, 
   {
-    host: process.env.DB_HOST, // Railway ka HOST URL
-    port: process.env.DB_PORT, // Railway ka PORT (default isme 3306 nahi hota, alag hota hai)
-    dialect: 'mysql',          // Hum MySQL use kar rahe hain
-    logging: false,             // फालतू log console me na dikhane ke liye
+    host: process.env.DB_HOST, 
+    port: process.env.DB_PORT || 3306, 
+    dialect: 'mysql',          
+    logging: false,             
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false // Railway aur Render ke liye ye line Zaroori hai!
+      }
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
 );
 
@@ -25,3 +36,5 @@ export const connectDB = async () => {
     console.error('❌ Connection Failed:', error.message);
   }
 };
+
+export { sequelize };

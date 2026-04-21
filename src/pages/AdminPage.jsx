@@ -8,7 +8,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return typeof window !== 'undefined' && localStorage.getItem('isVeltexAdmin') === 'true';
   });
-  
+
   const [loginData, setLoginData] = useState({ username: '', password: '' });
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function AdminPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError('');
-    
+
     try {
       const response = await axios.post(AUTH_API, loginData);
 
@@ -92,7 +92,7 @@ export default function AdminPage() {
 
   const ColumnTray = ({ column, title, customOptions }) => (
     <div className="relative inline-block" onClick={(e) => e.stopPropagation()}>
-      <button 
+      <button
         onClick={() => setActiveTray(activeTray === column ? null : column)}
         className={`ml-2 p-1.5 rounded-lg transition-all ${filters[column] ? 'bg-[#0066cc] text-white' : 'text-gray-800 hover:text-gray-600'}`}
       >
@@ -103,11 +103,11 @@ export default function AdminPage() {
           <div className="px-4 py-2 text-[0.6rem] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-1">Filter {title}</div>
           <button onClick={() => { setFilters({ ...filters, [column]: '' }); setActiveTray(null); }} className="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-600">All Time</button>
           {(customOptions || getOptions(column)).map(opt => {
-             const label = typeof opt === 'object' ? opt.label : opt;
-             const value = typeof opt === 'object' ? opt.value : opt;
-             return (
+            const label = typeof opt === 'object' ? opt.label : opt;
+            const value = typeof opt === 'object' ? opt.value : opt;
+            return (
               <button key={value} onClick={() => { setFilters({ ...filters, [column]: value }); setActiveTray(null); }} className={`w-full text-left px-4 py-2 text-xs hover:bg-blue-50 ${filters[column] === value ? 'text-[#0066cc] font-bold' : 'text-gray-500'}`}>{label}</button>
-             );
+            );
           })}
         </div>
       )}
@@ -120,8 +120,8 @@ export default function AdminPage() {
         <div className="w-full max-w-sm bg-white p-10 rounded-[2rem] shadow-xl border border-gray-100">
           <h2 className="font-serif text-3xl font-medium text-[#0f172a] text-center mb-8">Veltex Admin</h2>
           <form onSubmit={handleLogin} className="space-y-6">
-            <input type="text" required placeholder="Username" className="w-full bg-gray-50 rounded-xl px-5 py-4 text-sm outline-none border border-transparent focus:border-[#0066cc]" onChange={(e) => setLoginData({...loginData, username: e.target.value})} />
-            <input type="password" required placeholder="Password" className="w-full bg-gray-50 rounded-xl px-5 py-4 text-sm outline-none border border-transparent focus:border-[#0066cc]" onChange={(e) => setLoginData({...loginData, password: e.target.value})} />
+            <input type="text" required placeholder="Username" className="w-full bg-gray-50 rounded-xl px-5 py-4 text-sm outline-none border border-transparent focus:border-[#0066cc]" onChange={(e) => setLoginData({ ...loginData, username: e.target.value })} />
+            <input type="password" required placeholder="Password" className="w-full bg-gray-50 rounded-xl px-5 py-4 text-sm outline-none border border-transparent focus:border-[#0066cc]" onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
             {loginError && <p className="text-red-500 text-xs text-center">{loginError}</p>}
             <button className="w-full bg-[#0f172a] text-white py-4 rounded-xl font-bold text-sm tracking-widest hover:bg-[#0066cc] transition-all">LOGIN</button>
           </form>
@@ -139,11 +139,11 @@ export default function AdminPage() {
             <h1 className="font-serif text-4xl font-medium text-[#0f172a]">Veltex Inbox</h1>
           </div>
           <div className="flex items-center gap-4">
-             {Object.values(filters).some(f => f !== '') && <button onClick={() => setFilters({ name: '', email: '', service: '', dateRange: '' })} className="text-[0.6rem] font-bold text-red-500 uppercase tracking-widest">Reset Filters</button>}
-             <div className="bg-[#0f172a] text-white px-5 py-3 rounded-2xl flex items-center gap-5 shadow-lg">
-               <span className="text-sm font-serif font-bold italic">{filteredSubmissions.length} Entries</span>
-               <div className="h-4 w-px bg-white/20"></div>
-               <button onClick={handleLogout} className="text-[0.65rem] font-black uppercase tracking-widest hover:text-red-400 transition-colors">Logout</button>
+            {Object.values(filters).some(f => f !== '') && <button onClick={() => setFilters({ name: '', email: '', service: '', dateRange: '' })} className="text-[0.6rem] font-bold text-red-500 uppercase tracking-widest">Reset Filters</button>}
+            <div className="bg-[#0f172a] text-white px-5 py-3 rounded-2xl flex items-center gap-5 shadow-lg">
+              <span className="text-sm font-serif font-bold italic">{filteredSubmissions.length} Entries</span>
+              <div className="h-4 w-px bg-white/20"></div>
+              <button onClick={handleLogout} className="text-[0.65rem] font-black uppercase tracking-widest hover:text-red-400 transition-colors">Logout</button>
             </div>
           </div>
         </header>
