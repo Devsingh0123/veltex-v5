@@ -16,11 +16,13 @@ import ServicesPage from './pages/ServicesPage';
 import ProcessPage from './pages/ProcessPage';
 import ContactPage from './pages/ContactPage';
 import InsightsPage from './pages/InsightsPage';
+import AdminPage from './pages/AdminPage';
 
 function AppInner() {
   const navRef = useRef(null);
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isAdmin = location.pathname === '/admin';
 
   // Initialize smooth scrolling globally
   useLenis();
@@ -28,8 +30,8 @@ function AppInner() {
   return (
     <>
       <Nav navRef={navRef} />
-      <SocialSidebar />
-      <Hero isGlobal={!isHome} navRef={navRef} />
+      {!isAdmin && <SocialSidebar />}
+      {!isAdmin && <Hero isGlobal={!isHome} navRef={navRef} />}
 
       <Routes>
         <Route path="/" element={<HomePage navRef={navRef} />} />
@@ -40,9 +42,10 @@ function AppInner() {
         <Route path="/process" element={<PageWrapper><ProcessPage /></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
         <Route path="/insights" element={<PageWrapper><InsightsPage /></PageWrapper>} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
 
-      <Footer />
+      {!isAdmin && <Footer />}
     </>
   );
 }
