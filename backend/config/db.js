@@ -36,5 +36,3 @@ export const connectDB = async () => {
     console.error('❌ Connection Failed:', error.message);
   }
 };
-
-export { sequelize };
