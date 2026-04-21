@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Axios import kiya
 
-const CONTACT_API = 'http://localhost:5000/api/contact';
-const AUTH_API = 'http://localhost:5000/api/auth/login';
+const CONTACT_API = 'https://veltex-v5.onrender.com/api/contact';
+const AUTH_API = 'https://veltex-v5.onrender.com/api/auth/login';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -19,28 +20,21 @@ export default function AdminPage() {
     if (isAuthenticated) fetchData();
   }, [isAuthenticated]);
 
-  // LOGIN VIA BACKEND API
+  // LOGIN VIA AXIOS
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError('');
     
     try {
-      const response = await fetch(AUTH_API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData),
-      });
+      const response = await axios.post(AUTH_API, loginData);
 
-      const data = await response.json();
-
-      if (data.success) {
+      if (response.data.success) {
         localStorage.setItem('isVeltexAdmin', 'true');
         setIsAuthenticated(true);
-      } else {
-        setLoginError(data.message || 'Login failed');
       }
     } catch (err) {
-      setLoginError('Server error. Check if backend is running.');
+      const msg = err.response?.data?.message || 'Login failed. Please check your credentials.';
+      setLoginError(msg);
     }
   };
 
@@ -50,12 +44,12 @@ export default function AdminPage() {
     setSubmissions([]);
   };
 
+  // FETCH DATA VIA AXIOS
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(CONTACT_API);
-      const resData = await response.json();
-      if (resData.success) setSubmissions(resData.data);
+      const response = await axios.get(CONTACT_API);
+      if (response.data.success) setSubmissions(response.data.data);
     } catch (error) {
       console.error('Fetch error:', error);
     } finally {

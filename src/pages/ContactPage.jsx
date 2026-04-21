@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import axios from 'axios'; // Axios import kiya
 
-// Backend API URL — Development mein localhost, Production mein deployed URL
-const API_URL = 'http://localhost:5000/api/contact';
+// Backend API URL
+const API_URL = 'https://veltex-v5.onrender.com/api/contact';
 
 export default function ContactPage() {
   const containerRef = useRef(null);
 
-  // Form data state — har field ko track karo
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,47 +16,37 @@ export default function ContactPage() {
     message: '',
   });
 
-  // UI states
-  const [loading, setLoading] = useState(false);     // Submit ho raha hai?
-  const [success, setSuccess] = useState(false);     // Submit hua?
-  const [error, setError] = useState('');            // Koi error?
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
-  // Input change handler — ek hi function saare fields ke liye
   const handleChange = (e) => {
     const { id, value } = e.target;
-    // id se field name extract karo (e.g. "cp-name" → "name")
     const field = id.replace('cp-', '');
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Form submit handler
+  // SUBMIT HANDLER USING AXIOS
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Default page reload rokna
+    e.preventDefault();
     setLoading(true);
     setError('');
     setSuccess(false);
 
     try {
-      // Backend API par POST request bhejo
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      // Axios automatically JSON mein convert karta hai aur headers set karta hai
+      const response = await axios.post(API_URL, formData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Backend error
-        throw new Error(data.message || 'Something went wrong. Please try again.');
+      // Axios mein status code check karne ki zaroorat nahi hoti (agar error hoga toh ye seedha catch mein jayega)
+      if (response.data.success) {
+        setSuccess(true);
+        setFormData({ name: '', email: '', service: '', message: '' });
       }
 
-      // Success!
-      setSuccess(true);
-      setFormData({ name: '', email: '', service: '', message: '' }); // Form reset
-
     } catch (err) {
-      setError(err.message || 'Unable to connect to the server. Please check your connection.');
+      // Axios error handling: response.data check karein agar backend ne msg bheja ho
+      const errorMsg = err.response?.data?.message || 'Unable to connect to the server. Please check your connection.';
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -79,7 +69,6 @@ export default function ContactPage() {
   return (
     <div ref={containerRef} className="pt-24 pb-16 px-[6vw] bg-[#ffffff] min-h-screen text-[#0f172a] sm:pt-20">
       <div className="grid gap-20 items-start max-w-[1400px] mx-auto grid-cols-1 sm:gap-12">
-        {/* Left col */}
         <div className="contact-page-left">
           <p className="contact-label font-sans text-[1rem] tracking-[0.3em] uppercase text-[#666] mb-6 font-bold">(Get in touch)</p>
           <h1 className="contact-page-heading font-serif text-[clamp(2.5rem,5.5vw,7.5rem)] font-medium leading-[1.05] tracking-tighter text-[#0f172a] mb-10 sm:mb-8">
@@ -102,7 +91,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Right col — form */}
         <form
           className="contact-form-container flex flex-col gap-6 bg-white p-10 rounded-xl border border-black/5 shadow-[0_4px_30px_rgba(0,0,0,0.02)] sm:p-0 sm:bg-transparent sm:border-none"
           onSubmit={handleSubmit}
@@ -169,7 +157,6 @@ export default function ContactPage() {
             />
           </div>
 
-          {/* Response messages positioned just above the submit button */}
           {success && (
             <div className="bg-green-50 border border-green-200 text-green-700 rounded-lg px-6 py-4 font-sans text-[0.85rem]">
               ✅ Your message has been sent successfully! We will contact you shortly.
@@ -210,4 +197,3 @@ export default function ContactPage() {
     </div>
   );
 }
-
