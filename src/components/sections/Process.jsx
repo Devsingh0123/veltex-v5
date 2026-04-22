@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useProcessAnimation } from '../../hooks/useScrollAnimations';
 import { VBackgroundPattern } from './VShape';
+import processHomePage from '../../assets/processHomePage.jpeg';
 
 const STEPS = [
   {
@@ -37,46 +38,66 @@ const STEPS = [
 
 export default function Process() {
   const sectionRef = useRef(null);
+  const imageRef = useRef(null);
 
-  useProcessAnimation({ sectionRef });
+  useProcessAnimation({ sectionRef, imageRef });
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#ffffff] text-[#0f172a] py-8 px-[6vw]  overflow-hidden py-14"
+      className="relative overflow-hidden bg-[#ffffff] px-[6vw] py-14 text-[#0f172a] "
       id="process"
       aria-label="Our process"
     >
       <VBackgroundPattern color="#0f172a" opacity={0.02} />
 
-      <div className="">
-        <p className="process-label font-sans text-[1rem] font-bold tracking-[0.3em] uppercase text-[#666] py-4">(Our Process)</p>
-        <h2 className="process-headline font-serif text-[clamp(2.8rem,4.5vw,5rem)] font-medium leading-[1.2] tracking-[-0.025em] max-w-[900px] mt-4">
-          One strategy. <span className="italic font-normal text-[#0066cc]">Every</span> channel. <span className="italic font-normal text-[#0066cc]">No exceptions.</span>
+      <div className="relative z-10 mx-auto max-w-[1440px]">
+        <p className="process-label py-4 font-sans text-[1rem] font-bold uppercase tracking-[0.3em] text-[#666]">(Our Process)</p>
+        <h2 className="process-headline mt-4 w-full font-serif text-[clamp(2.3rem,4.7vw,5.1rem)] font-medium leading-[1.08] tracking-[-0.03em]">
+          One strategy. <span className="font-normal italic text-[#0066cc]">Every</span> channel. <span className="font-normal italic text-[#0066cc]">No exceptions.</span>
         </h2>
-        <p className="process-description font-sans text-[clamp(1rem,1.2vw,1.125rem)] leading-[1.75] text-[#555] max-w-[600px] mt-10 font-light">
-          Integrated Marketing Communication is how we work — not a service we upsell. From the first brief to the final campaign report, everything we do is built on one unified foundation.
+        <p className="process-description mt-8 w-full font-sans text-[clamp(1rem,1.2vw,1.125rem)] font-light leading-[1.8] text-[#555]">
+          Integrated Marketing Communication is how we work, not a service we upsell. From the first brief to the final campaign
+          report, everything we do is built on one unified foundation.
         </p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 mt-20" role="list">
-        {STEPS.map((step, index) => (
-          <div
-            key={step.num}
-            className="process-step group flex flex-col gap-6 pt-10 border-t border-black/10 transition-colors duration-500 hover:border-[#0066cc]/30"
-            role="listitem"
-            aria-label={`Step ${step.num}: ${step.title}`}
-          >
-            <div className="process-number font-serif text-[4.5rem] font-bold leading-none text-black/10 tracking-tighter group-hover:text-[#0066cc]/20 transition-colors duration-500" aria-hidden="true">
-              {step.num}
-            </div>
-            <div className="process-step-content flex flex-col gap-4">
-              <h3 className="process-step-title font-serif text-[clamp(1.5rem,2.5vw,2.2rem)] font-medium leading-tight text-[#0f172a]">{step.title}</h3>
-              <h4 className="process-step-heading font-sans text-sm font-bold tracking-widest uppercase text-[#0066cc] opacity-80">{step.heading}</h4>
-              <p className="process-step-desc font-sans text-base leading-relaxed font-light text-[#555]">{step.desc}</p>
+        {/* Left takes remaining width, right visual stays fixed and premium. */}
+        <div className="mt-16 grid grid-cols-1 items-start gap-12 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-12">
+          <div className="process-steps-column grid grid-cols-1 gap-5 md:grid-cols-2" role="list">
+            {STEPS.map((step, index) => (
+              <div
+                key={step.num}
+                className="process-step group relative flex h-full flex-col justify-between overflow-hidden rounded-[22px] border border-black/10 bg-white p-5 transition-all duration-500 hover:-translate-y-1 hover:border-[#0066cc]/30 hover:shadow-[0_18px_45px_rgba(15,23,42,0.08)]"
+                role="listitem"
+                aria-label={`Step ${step.num}: ${step.title}`}
+              >
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#0066cc]/45 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="process-number font-serif text-[clamp(2.1rem,3.5vw,3.2rem)] font-bold leading-none tracking-[-0.06em] text-black/10 transition-colors duration-500 group-hover:text-[#0066cc]/25" aria-hidden="true">
+                  {step.num}
+                </div>
+                <div className="process-step-content flex max-w-none flex-1 flex-col gap-3 pt-3">
+                  <h3 className="process-step-title font-serif text-[clamp(1.15rem,1.4vw,1.6rem)] font-semibold leading-[1.08] text-[#0b1220]">{step.title}</h3>
+                  <h4 className="process-step-heading font-sans text-[0.75rem] font-semibold uppercase tracking-[0.22em] text-[#0057b8]">{step.heading}</h4>
+                  <p className="process-step-desc font-sans text-[0.95rem] leading-[1.68] font-normal text-[#1f2937]">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right panel uses a fixed portrait presentation and clear motion target. */}
+          <div className="process-visual-wrap flex items-start justify-end xl:sticky xl:top-24">
+            <div className="process-image-shell relative w-full max-w-[360px]">
+             
+              <img
+                ref={imageRef}
+                src={processHomePage}
+                alt="Veltex process visual"
+                loading="lazy"
+                className="process-image block h-auto w-full rounded-[20px] will-change-transform"
+              />
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );

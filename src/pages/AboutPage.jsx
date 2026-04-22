@@ -120,11 +120,16 @@ export default function AboutPage() {
   const philosophy = [
     'Marketing works best when everything works together',
     'The brief is a starting point, not a limitation',
-    'Bold ideas outperform safe, predictable campaigns'
+    'Bold ideas outperform safe, predictable campaigns',
+    'Our Commitment to Excellence'
   ];
 
   const definesUs = [
     'Strategy-first approach with creativity embedded in execution',
+    'Seamless Execution - From concept to campaign launch, our end-to-end service ensures flawless implementation across all channels.',
+    'Intuitive platform that eliminates the complexity of media buying, putting thousands of options at your fingertips',
+    'Craft data-driven strategies aligned with your business objectives.',
+    'Transparent Process with Real-time tracking, detailed analytics, and clear communication keep you informed every step of the way.',
     'Focus on real outcomes, not just aesthetics',
     'Integrated thinking across every marketing touchpoint'
   ];
@@ -140,26 +145,25 @@ export default function AboutPage() {
       {/* Hero Section */}
       <div className="max-w-[1200px] mb-12 sm:mb-10">
         <div className="about-label font-sans text-[1rem] tracking-[0.3em] uppercase text-[#0066cc] mb-6 font-bold">(About Us)</div>
-        <h1 className="font-serif text-[clamp(2rem,4vw,4.5rem)] font-medium leading-[1.1] tracking-[-0.01em] text-[#0f172a] max-w-[1100px]">
-          <div className="overflow-hidden pb-1">
-            <span className="about-page-line inline-block will-change-transform">Veltex is a full-service integrated marketing</span>
-          </div>
-          <div className="overflow-hidden pb-2">
-            <span className="about-page-line inline-block will-change-transform">agency that blends strategic thinking with</span>
-          </div>
-          <div className="overflow-hidden">
-            <span className="about-page-line inline-block will-change-transform">
-              <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] drop-shadow-sm pr-2">bold creativity.</em>
-            </span>
-          </div>
+        <h1 className="font-serif text-[clamp(2.5rem,5vw,6rem)] font-medium leading-[1.1] tracking-[-0.01em] text-[#0f172a] w-full max-w-none">
+
+          <span className="about-page-line will-change-transform">{" "}<span className="about-page-line  will-change-transform"> <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] drop-shadow-sm pr-2">Empowering Every Brand to Shine</em></span>
+          </span>
+
+
+
         </h1>
-        <p className="about-page-line mt-10 font-sans text-[clamp(1.1rem,1.5vw,1.4rem)] font-light leading-relaxed text-[#555] max-w-[800px]">
-          We don't just create campaigns — we solve real business problems, shift perceptions, and drive revenue growth.
+        <p className="about-page-line mt-10 font-sans text-[clamp(0.9rem,1.3vw,1.4rem)] font-light leading-relaxed text-[#555] max-w-[900px]">
+         <em className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#0066cc] to-[#0066cc] drop-shadow-sm pr-2">At Veltex</em>
+        , we believe that every business, regardless of size or industry, deserves the power to tell their story and reach their audience. Since 2013, we've been on a mission to democratize advertising in India, making professional media planning and execution accessible to all.
+        </p>
+        <p className="about-page-line mt-6 font-sans text-[clamp(0.9rem,1.3vw,1.4rem)] font-light leading-relaxed text-[#555] max-w-[900px]">
+          With over a decade of expertise and the trust of various brands across the country, Veltex has established itself as a premier advertising agency. From ambitious startups to established enterprises, businesses choose us because we deliver results that matter.
         </p>
       </div>
 
       {/* Scattered Image Collage */}
-      <div className="grid grid-cols-4 gap-4 md:grid-cols-2 md:gap-x-4 md:gap-y-12 mb-10 items-start sm:mb-16">
+      {/* <div className="grid grid-cols-4 gap-4 md:grid-cols-2 md:gap-x-4 md:gap-y-12 mb-10 items-start sm:mb-16">
         <img
           src={image1}
           alt="Creative meeting"
@@ -180,17 +184,17 @@ export default function AboutPage() {
           alt="Marketing analytics"
           className="about-page-scatter-img col-start-4 row-start-1 mt-10 w-full rounded-xl shadow-[0_12px_25px_rgba(0,0,0,0.11)] object-cover md:col-start-2 md:row-start-2 md:mt-0"
         />
-      </div>
+      </div> */}
 
       {/* What Defines Us & Core Philosophy */}
       <div className="grid  gap-20 mb-20 grid-cols-1 sm:gap-12">
         {/* Defines Us */}
-        <div className="reveal-section bg-[#f8f9fa] p-12 rounded-3xl border border-black/5 hover:border-[#0066cc]/20 transition-colors duration-500">
-          <h2 className="font-serif text-4xl mb-6 text-[#0f172a]">What Defines Us</h2>
+        <div className="reveal-section bg-gradient-to-br from-[#f8f9fa] via-[#e6f3ff] to-[#f0f9ff] p-12 rounded-3xl border border-[#0066cc]/10 hover:border-[#0066cc]/30 transition-all duration-500 shadow-[0_8px_32px_rgba(0,102,204,0.08)]">
+          <h2 className="font-serif text-4xl mb-8 text-[#0f172a] bg-gradient-to-r from-[#0066cc] to-[#8cc63f] bg-clip-text text-transparent">What Defines Us</h2>
           <ul className="space-y-6">
             {definesUs.map((item, i) => (
-              <li key={i} className="flex items-start gap-4 font-sans text-lg text-[#555] font-light">
-                <span className="w-2 h-2 rounded-full bg-[#00aaff] mt-2.5 shrink-0" />
+              <li key={i} className="flex items-start gap-4 font-sans text-[1.1rem] text-[#334155] font-normal leading-relaxed">
+                <span className="w-3 h-3 rounded-full bg-gradient-to-r from-[#0066cc] to-[#00aaff] mt-2.5 shrink-0 shadow-sm" />
                 <span className="leading-relaxed">{item}</span>
               </li>
             ))}
@@ -198,14 +202,14 @@ export default function AboutPage() {
         </div>
 
         {/* Philosophy */}
-        <div className="reveal-section bg-[#0f172a] text-white p-12 rounded-3xl relative overflow-hidden flex flex-col justify-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0066cc]/20 to-[#8cc63f]/20" />
+        <div className="reveal-section bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#334155] text-white p-12 rounded-3xl relative overflow-hidden flex flex-col justify-center shadow-[0_12px_40px_rgba(0,0,0,0.3)]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0066cc]/30 via-[#00aaff]/20 to-[#8cc63f]/30" />
           <div className="relative z-10">
-            <h2 className="font-serif text-4xl mb-8">Our Core Philosophy</h2>
+            <h2 className="font-serif text-4xl mb-8 bg-gradient-to-r from-white to-[#8cc63f] bg-clip-text text-transparent">Our Core Philosophy</h2>
             <ul className="space-y-6">
               {philosophy.map((item, i) => (
-                <li key={i} className="flex items-start gap-4 font-sans text-lg font-light text-white/90">
-                  <svg className="w-5 h-5 text-[#8cc63f] mt-1 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <li key={i} className="flex items-start gap-4 font-sans text-[1.1rem] font-light text-white/95 leading-relaxed">
+                  <svg className="w-6 h-6 text-[#8cc63f] mt-1 shrink-0 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   <span className="leading-relaxed">{item}</span>
@@ -217,9 +221,9 @@ export default function AboutPage() {
       </div>
 
       {/* Our Values - 4 Column Grid */}
-      <div className="reveal-section ">
+      <div className="reveal-section mb-20">
         <h2 className="font-serif text-[clamp(2.5rem,4vw,4rem)] mb-12 text-center">
-          Our <em className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] to-[#8cc63f]">Values</em>
+          Our <em className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f]">Values</em>
         </h2>
         <div className="values-grid grid  gap-6 grid-cols-1 md:grid-cols-2">
           {values.map((v, i) => (
@@ -250,13 +254,13 @@ export default function AboutPage() {
       </div>
 
       {/* Our Expertise */}
-      <div className="reveal-section expertise-container py-16 border-t border-b border-[#eaeaea] text-center">
-        <h2 className="font-sans text-[1rem] tracking-[0.3em] uppercase text-[#666] mb-12 font-bold">(Our Expertise)</h2>
-        <div className="flex flex-wrap justify-center gap-4 max-w-[900px] mx-auto">
+      <div className="reveal-section expertise-container py-20 border-t border-b border-[#e6f3ff] bg-gradient-to-br from-white via-[#f8faff] to-[#f0f9ff] text-center">
+        <h2 className="font-sans text-[1rem] tracking-[0.3em] uppercase text-[#0066cc] mb-12 font-bold">(Our Expertise)</h2>
+        <div className="flex flex-wrap justify-center gap-4 max-w-[1000px] mx-auto">
           {expertise.map((skill, i) => (
             <div
               key={i}
-              className="expertise-pill px-6 py-3 rounded-full border border-[#ccc] text-[#0f172a] font-medium text-sm font-sans hover:border-transparent bg-gradient-to-r from-[#0066cc] to-[#00aaff] text-white transition-all duration-300 cursor-default shadow-sm hover:scale-125"
+              className="expertise-pill px-6 py-3 rounded-full border border-[#e6f3ff] font-medium text-[1rem] font-sans bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] text-white transition-all duration-300 cursor-default shadow-[0_4px_16px_rgba(0,102,204,0.2)] hover:scale-110 hover:shadow-[0_8px_24px_rgba(0,102,204,0.3)] hover:-translate-y-1"
             >
               {skill}
             </div>

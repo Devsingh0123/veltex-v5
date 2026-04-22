@@ -143,22 +143,21 @@ export default function ProcessPage() {
       {/* Hero Section */}
       <div className="max-w-[1200px] mb-16 sm:mb-12 pl-8 md:pl-0">
         <p className="process-label font-sans text-[1rem] tracking-[0.3em] uppercase text-[#0066cc] mb-6 font-bold">(Our Methodology)</p>
-        <h1 className="font-serif text-[clamp(2.5rem,5.5vw,6rem)] font-medium leading-[1.05] tracking-tighter text-[#0f172a] max-w-[1000px]">
-          <div className="overflow-hidden pb-1">
-            <span className="process-page-line inline-block will-change-transform">One strategy.</span>
-          </div>
-          <div className="overflow-hidden pb-1">
-            <span className="process-page-line inline-block will-change-transform">
-              <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] pr-2">Every channel.</em>
+        <h1 className="font-serif text-[clamp(2.5rem,5.5vw,6rem)] font-medium leading-[1.05] tracking-tighter text-[#0f172a] w-full">
+         
+            <span className="process-page-line will-change-transform">One strategy{" "}</span>
+          
+      
+            <span className="process-page-line  will-change-transform">
+              <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#00aaff] to-[#8cc63f] pr-2">Every channel{" "}</em>
             </span>
-          </div>
-          <div className="overflow-hidden pb-2">
-            <span className="process-page-line inline-block will-change-transform">
+        
+            <span className="process-page-line  will-change-transform">
               <em className="italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#00aaff] to-[#8cc63f] pr-2">No exceptions.</em>
             </span>
-          </div>
+    
         </h1>
-        <p className="process-page-line mt-6 font-sans text-[clamp(1.1rem,1.4vw,1.3rem)] font-light leading-[1.7] text-[#555] max-w-[700px]">
+        <p className="process-page-line mt-6 font-sans text-[clamp(1.1rem,1.4vw,1.3rem)] font-light leading-[1.7] text-[#555] w-full">
           Integrated Marketing Communication is how we work — not a service we upsell. From the first brief to the final campaign report, everything we do is built on one unified foundation.
         </p>
       </div>

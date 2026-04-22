@@ -198,262 +198,125 @@ export function useParticleExplosion(containerRef, particleCount = 20) {
 }
 
 /**
- * About section: JAW-DROPPING VERSION - color transition + parallax image + spectacular text reveal + interactive stats
+ * About section: clean editorial reveal with subtle parallax
  */
 export function useAboutAnimation({ sectionRef, imageRef, wordRefs }) {
   useEffect(() => {
     if (!sectionRef?.current) return;
 
-    // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // LEFT SIDE - Image container animation
-      const imageContainer = sectionRef.current.querySelector('.about-image-container');
-      if (imageContainer) {
-        gsap.from(imageContainer, {
-          x: -100,
-          opacity: 0,
-          scale: 0.8,
-          rotation: -5,
-          duration: 1.2,
-          ease: 'back.out(1.3)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            end: 'bottom 25%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
+      const section = sectionRef.current;
+      const label = section.querySelector('.about-label');
+      const description = section.querySelector('.about-description');
+      const content = section.querySelector('.about-content-container');
+      const copy = section.querySelectorAll('.about-copy-p');
+      const imageContainer = section.querySelector('.about-image-container');
+      const bgPattern = section.querySelector('.v-bg-pattern');
 
-      // SPECTACULAR text reveal with bounce effects
-      if (wordRefs?.current?.length) {
-        gsap.from(wordRefs.current, {
-          y: '200%',
-          opacity: 0,
-          rotationX: -45,
-          scale: 0.8,
-          duration: 1.5,
-          stagger: {
-            each: 0.08,
-            from: 'start',
-            onComplete: function () {
-              // Individual word bounce
-              gsap.to(this.targets(), {
-                scale: 1.1,
-                duration: 0.3,
-                ease: 'power2.out',
-                yoyo: true,
-                repeat: 1,
-              });
-            }
-          },
-          ease: 'back.out(1.3)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
-
-      // JAW-DROPPING stats counter with glow effect
-      const stats = sectionRef.current.querySelectorAll('.about-stat-number');
-      if (stats.length) {
-        stats.forEach((stat, index) => {
-          const finalValue = stat.innerText;
-          const isPlus = finalValue.includes('+');
-          const numValue = parseFloat(finalValue.replace(/[^0-9.]/g, ''));
-
-          // Entrance animation
-          gsap.from(stat, {
-            y: 80,
-            opacity: 0,
-            scale: 0.5,
-            rotation: 15,
-            duration: 1.0,
-            ease: 'back.out(1.5)',
-            scrollTrigger: {
-              trigger: stat,
-              start: 'top 85%',
-              end: 'bottom 15%',
-              toggleActions: 'play none none reverse',
-            },
-          });
-
-          // Counting animation
-          gsap.from(stat, {
-            scrollTrigger: {
-              trigger: stat,
-              start: 'top 80%',
-              end: 'bottom 20%',
-              toggleActions: 'play none none reverse',
-            },
-            innerHTML: 0,
-            duration: 2.5,
-            ease: 'power2.out',
-            onUpdate: function () {
-              const progress = this.progress;
-              const currentValue = Math.floor(numValue * progress);
-              stat.innerText = currentValue + (isPlus ? '+' : '');
-
-              // Glow effect during counting
-              const glow = 20 + (progress * 10);
-              gsap.set(stat, {
-                filter: `drop-shadow(0 0 ${glow}px rgba(212, 75, 30,${0.3 + progress * 0.3})`,
-              });
-            },
-            onComplete: function () {
-              stat.innerText = finalValue;
-              // Final pulse
-              gsap.to(stat, {
-                scale: 1.1,
-                duration: 0.3,
-                ease: 'power2.out',
-                yoyo: true,
-                repeat: 1,
-              });
-            }
-          });
-        });
-      }
-
-      // SPECTACULAR copy paragraphs with stagger
-      const paras = sectionRef.current.querySelectorAll('.about-copy-p');
-      if (paras.length) {
-        gsap.from(paras, {
-          y: 60,
-          opacity: 0,
-          scale: 0.95,
-          rotationX: 15,
-          duration: 1.2,
-          stagger: 0.2,
+      const introTl = gsap.timeline({
+        defaults: {
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: paras[0],
-            start: 'top 85%',
-            end: 'bottom 15%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
-
-      // CLEAN IMAGE ANIMATION - Simple and Impressive
-      if (imageRef?.current) {
-        // Initial state - image is hidden
-        gsap.set(imageRef.current, {
-          opacity: 0,
-          scale: 0.8,
-          y: 30,
-        });
-
-        // Clean entrance animation
-        gsap.to(imageRef.current, {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'top 50%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-
-        // Subtle parallax effect
-        gsap.to(imageRef.current, {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 40%',
-            end: 'bottom top',
-            scrub: 2,
-          },
-          y: -40,
-          scale: 1.05,
-          transformOrigin: 'center center',
-        });
-      }
-
-      // RIGHT SIDE - Content container animation
-      const contentContainer = sectionRef.current.querySelector('.about-content-container');
-      if (contentContainer) {
-        gsap.from(contentContainer, {
-          x: 100,
-          opacity: 0,
-          scale: 0.9,
-          rotation: 5,
-          duration: 1.2,
-          ease: 'back.out(1.3)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            end: 'bottom 25%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
-
-      // About label animation
-      const aboutLabel = sectionRef.current.querySelector('.about-label');
-      if (aboutLabel) {
-        gsap.from(aboutLabel, {
-          y: -30,
-          opacity: 0,
-          scale: 0.8,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 90%',
-            end: 'bottom 10%',
-            toggleActions: 'play none none reverse',
-          },
-        });
-      }
-
-      // Interactive hover effects for stats
-      const statContainers = sectionRef.current.querySelectorAll('.about-stat-container');
-      statContainers.forEach((container) => {
-        container.addEventListener('mouseenter', () => {
-          gsap.to(container, {
-            scale: 1.05,
-            y: -5,
-            duration: 0.3,
-            ease: 'power2.out',
-          });
-        });
-
-        container.addEventListener('mouseleave', () => {
-          gsap.to(container, {
-            scale: 1,
-            y: 0,
-            duration: 0.4,
-            ease: 'elastic.out(1, 0.3)',
-          });
-        });
+          duration: 1,
+        },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 78%',
+          toggleActions: 'play none none reverse',
+        },
       });
 
-      // Background pattern animation
-      const bgPattern = sectionRef.current.querySelector('.v-bg-pattern');
-      if (bgPattern) {
-        gsap.to(bgPattern, {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 3,
+      if (label) introTl.from(label, { y: 24, opacity: 0 }, 0);
+      if (wordRefs?.current?.length) {
+        introTl.from(
+          wordRefs.current,
+          {
+            yPercent: 120,
+            opacity: 0,
+            rotateX: -18,
+            stagger: 0.08,
+            duration: 1.05,
           },
-          y: -50,
-          rotation: 5,
-          scale: 1.2,
-          ease: 'none',
+          0.08
+        );
+      }
+      if (description) introTl.from(description, { y: 32, opacity: 0 }, 0.22);
+
+      if (content) {
+        gsap.from(content, {
+          x: -36,
+          opacity: 0,
+          duration: 1.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: content,
+            start: 'top 82%',
+            toggleActions: 'play none none reverse',
+          },
         });
       }
 
+      if (copy.length) {
+        gsap.from(copy, {
+          y: 36,
+          opacity: 0,
+          duration: 0.95,
+          stagger: 0.14,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: copy[0],
+            start: 'top 86%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
+      if (imageContainer) {
+        gsap.from(imageContainer, {
+          x: 28,
+          y: 18,
+          opacity: 0,
+          duration: 1.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: imageContainer,
+            start: 'top 84%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
+      if (imageRef?.current) {
+        gsap.fromTo(
+          imageRef.current,
+          { y: 0, rotate: 0.001 },
+          {
+            y: -18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.6,
+            },
+          }
+        );
+      }
+
+      if (bgPattern) {
+        gsap.to(bgPattern, {
+          y: -70,
+          rotation: 4,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5,
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -647,180 +510,192 @@ export function useWorkAnimation({ sectionRef }) {
 }
 
 /**
- * Process section: ENHANCED VERSION - same clean animations as other sections
+ * Process section: editorial stagger with sticky visual motion
  */
-export function useProcessAnimation({ sectionRef }) {
+export function useProcessAnimation({ sectionRef, imageRef }) {
   useEffect(() => {
     if (!sectionRef?.current) return;
 
-    // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // Kill any existing ScrollTriggers for this section
-    ScrollTrigger.getAll().forEach(trigger => {
-      if (trigger.trigger === sectionRef.current) {
-        trigger.kill();
-      }
-    });
-
     const ctx = gsap.context(() => {
-      console.log('Process animation initialized');
+      const section = sectionRef.current;
+      const label = section.querySelector('.process-label');
+      const headline = section.querySelector('.process-headline');
+      const description = section.querySelector('.process-description');
+      const steps = section.querySelectorAll('.process-step');
+      const numbers = section.querySelectorAll('.process-number');
+      const headings = section.querySelectorAll('.process-step-heading');
+      const titles = section.querySelectorAll('.process-step-title');
+      const descs = section.querySelectorAll('.process-step-desc');
+      const visualWrap = section.querySelector('.process-visual-wrap');
+      const imageShell = section.querySelector('.process-image-shell');
+      const stepsColumn = section.querySelector('.process-steps-column');
 
-      // Process label animation
-      const processLabel = sectionRef.current.querySelector('.process-label');
-      console.log('Process label found:', processLabel);
-      if (processLabel) {
-        gsap.from(processLabel, {
-          y: -30,
+      const introTl = gsap.timeline({
+        defaults: {
+          ease: 'power3.out',
+          duration: 0.95,
+        },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 78%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      if (label) introTl.from(label, { y: 24, opacity: 0 }, 0);
+      if (headline) introTl.from(headline, { y: 44, opacity: 0 }, 0.08);
+      if (description) introTl.from(description, { y: 28, opacity: 0 }, 0.18);
+
+      if (stepsColumn) {
+        gsap.from(stepsColumn, {
+          y: 24,
           opacity: 0,
-          scale: 0.8,
-          duration: 0.8,
+          duration: 0.9,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 90%',
-            end: 'bottom 10%',
+            trigger: stepsColumn,
+            start: 'top 84%',
             toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process label entered'),
           },
         });
       }
 
-      // Headline animation
-      const headline = sectionRef.current.querySelector('.process-headline');
-      console.log('Process headline found:', headline);
-      if (headline) {
-        gsap.from(headline, {
-          y: 60,
-          opacity: 0,
-          scale: 0.9,
-          duration: 1.2,
-          ease: 'back.out(1.3)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 60%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process headline entered'),
-          },
-        });
-      }
-
-      // Description animation
-      const description = sectionRef.current.querySelector('.process-description');
-      console.log('Process description found:', description);
-      if (description) {
-        gsap.from(description, {
-          y: 40,
-          opacity: 0,
-          scale: 0.95,
-          duration: 1.0,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 55%',
-            end: 'bottom 25%',
-            toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process description entered'),
-          },
-        });
-      }
-
-      // Process steps with stagger
-      const steps = sectionRef.current.querySelectorAll('.process-step');
-      console.log('Process steps found:', steps.length);
       if (steps.length) {
         gsap.from(steps, {
-          y: 50,
+          y: 26,
           opacity: 0,
-          scale: 0.8,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'back.out(1.3)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'bottom 30%',
-            toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process steps entered'),
-          },
-        });
-      }
-
-      // Step numbers with enhanced animation
-      const stepNumbers = sectionRef.current.querySelectorAll('.process-number');
-      console.log('Process numbers found:', stepNumbers.length);
-      if (stepNumbers.length) {
-        gsap.from(stepNumbers, {
-          y: 40,
-          opacity: 0,
-          scale: 0.5,
-          rotation: 15,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: 'back.out(1.5)',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 65%',
-            end: 'bottom 35%',
-            toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process numbers entered'),
-          },
-        });
-      }
-
-      // Step titles
-      const stepTitles = sectionRef.current.querySelectorAll('.process-step-title');
-      console.log('Process titles found:', stepTitles.length);
-      if (stepTitles.length) {
-        gsap.from(stepTitles, {
-          y: 30,
-          opacity: 0,
-          duration: 0.7,
+          duration: 0.9,
           stagger: 0.12,
           ease: 'power3.out',
+          onComplete: () => {
+            gsap.set(steps, { clearProps: 'transform,opacity' });
+          },
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 60%',
-            end: 'bottom 40%',
+            trigger: steps[0],
+            start: 'top 86%',
             toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process titles entered'),
           },
         });
       }
 
-      // Step descriptions
-      const stepDescs = sectionRef.current.querySelectorAll('.process-step-desc');
-      console.log('Process descriptions found:', stepDescs.length);
-      if (stepDescs.length) {
-        gsap.from(stepDescs, {
-          y: 25,
+      if (numbers.length) {
+        gsap.from(numbers, {
+          y: 24,
           opacity: 0,
-          duration: 0.6,
-          stagger: 0.15,
+          duration: 0.8,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 55%',
-            end: 'bottom 45%',
+            trigger: section,
+            start: 'top 72%',
             toggleActions: 'play none none reverse',
-            onEnter: () => console.log('Process descriptions entered'),
           },
         });
       }
 
+      if (titles.length) {
+        gsap.from(titles, {
+          y: 18,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: 'power2.out',
+          onComplete: () => {
+            gsap.set(titles, { clearProps: 'transform,opacity' });
+          },
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 70%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
+      if (headings.length || descs.length) {
+        const contentEls = [...headings, ...descs];
+        gsap.from(contentEls, {
+          y: 16,
+          opacity: 0,
+          duration: 0.75,
+          stagger: 0.06,
+          ease: 'power2.out',
+          onComplete: () => {
+            gsap.set(contentEls, { clearProps: 'transform,opacity' });
+          },
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 68%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
+      if (visualWrap) {
+        gsap.from(visualWrap, {
+          x: 48,
+          opacity: 0,
+          duration: 1.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: visualWrap,
+            start: 'top 84%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
+
+      if (imageShell) {
+        const imageReveal = gsap.timeline({
+          defaults: {
+            ease: 'power3.out',
+          },
+          scrollTrigger: {
+            trigger: imageShell,
+            start: 'top 84%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+
+        imageReveal
+          .from(imageShell, {
+            y: 28,
+            opacity: 0,
+            duration: 1.15,
+          })
+          .from(
+            imageShell,
+            {
+              clipPath: 'inset(8% 10% 12% 10% round 32px)',
+              duration: 1.1,
+            },
+            0
+          );
+      }
+
+      if (imageRef?.current) {
+        gsap.fromTo(
+          imageRef.current,
+          { y: 0, rotate: -1.5, scale: 1.02 },
+          {
+            y: -34,
+            rotate: 1.5,
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.4,
+            },
+          }
+        );
+      }
     }, sectionRef);
 
-    return () => {
-      ctx.revert();
-      // Clean up ScrollTriggers
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.trigger === sectionRef.current) {
-          trigger.kill();
-        }
-      });
-    };
-  }, [sectionRef]);
+    return () => ctx.revert();
+  }, [sectionRef, imageRef]);
 }
 
 /**
