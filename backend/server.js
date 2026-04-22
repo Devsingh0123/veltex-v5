@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 
 // MIDDLEWARE
 app.use(cors({
-  origin: ['https://veltex-v5.vercel.app', 'http://localhost:5173'], // Vercel aur Local specifically allow
+  origin: ['https://veltex-v5.vercel.app', 'https://veltexs.com', 'http://localhost:5173'], // Vercel aur Local specifically allow
   credentials: true
 }));
 app.use(express.json());
