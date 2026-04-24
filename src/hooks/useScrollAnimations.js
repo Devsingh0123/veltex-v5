@@ -247,7 +247,7 @@ export function useAboutAnimation({ sectionRef, imageRef, wordRefs }) {
         gsap.from(content, {
           x: -36,
           opacity: 0,
-          duration: 1.1,
+          duration: 1.8,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: content,
@@ -276,7 +276,7 @@ export function useAboutAnimation({ sectionRef, imageRef, wordRefs }) {
         gsap.from(imageContainer, {
           x: 80,
           opacity: 0,
-          duration: 1.15,
+          duration: 1.8,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: imageContainer,
