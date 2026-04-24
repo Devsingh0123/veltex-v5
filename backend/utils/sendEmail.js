@@ -1,4 +1,10 @@
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+
+// FIX FOR RAILWAY IPv6 ERROR (ENETUNREACH):
+// Railway servers struggle with outgoing IPv6 connections to Gmail.
+// This single line forces Node.js to use IPv4 (like 142.250.xxx.xxx) instead of IPv6.
+dns.setDefaultResultOrder('ipv4first');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
