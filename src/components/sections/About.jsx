@@ -70,7 +70,7 @@ export default function About() {
 
         {/* Copy — flows on left side */}
         <div className="about-content-container flex flex-col gap-7 pt-0 md:pt-8">
-          <h3 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.2] tracking-[-0.025em] text-[#0f172a] max-w-[500px]">
+          <h3 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.2] tracking-[-0.025em] text-[#0f172a] w-full">
             Strategy first. <span className="italic font-normal text-[#0066cc]">Creativity always.</span>
           </h3>
 
