@@ -155,7 +155,7 @@ export default function AboutPage() {
         </h1>
         <p className="about-page-line mt-10 font-sans text-[clamp(0.9rem,1.3vw,1.4rem)] font-light leading-relaxed text-[#555] w-full">
           <em className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] via-[#0066cc] to-[#0066cc] drop-shadow-sm pr-2">At Veltex</em>
-          , we believe that every business, regardless of size or industry, deserves the power to tell their story and reach their audience. <br /> Since 2013, we've been on a mission to democratize advertising in India, making professional media planning and execution accessible <br />  to  all.
+          , we believe that every business, regardless of size or industry, deserves the power to tell their story and reach their audience. Since 2013, we've been on a mission to democratize advertising in India, making professional media planning and execution accessible <br />  to  all.
         </p>
         <p className="about-page-line mt-6 font-sans text-[clamp(0.9rem,1.3vw,1.4rem)] font-light leading-relaxed text-[#555] w-full">
           With over a decade of expertise and the trust of various brands across the country, Veltex has established itself as a premier advertising agency. From ambitious startups to established enterprises, businesses choose us because we deliver results that matter.
