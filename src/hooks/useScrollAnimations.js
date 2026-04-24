@@ -336,7 +336,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Work label animation
       const workLabel = sectionRef.current.querySelector('.work-label');
       if (workLabel) {
-        gsap.fromTo(workLabel, 
+        gsap.fromTo(workLabel,
           { y: -30, opacity: 0, scale: 0.8 },
           {
             y: 0,
@@ -357,7 +357,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Headline words animation
       const headlineWords = sectionRef.current.querySelectorAll('.work-headline-word');
       if (headlineWords.length) {
-        gsap.fromTo(headlineWords, 
+        gsap.fromTo(headlineWords,
           { y: '150%', opacity: 0, scale: 0.8 },
           {
             y: '0%',
@@ -379,7 +379,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Description paragraph animation
       const workDesc = sectionRef.current.querySelector('.work-description');
       if (workDesc) {
-        gsap.fromTo(workDesc, 
+        gsap.fromTo(workDesc,
           { y: 40, opacity: 0, scale: 0.95 },
           {
             y: 0,
@@ -400,7 +400,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Main project gallery animation
       const projectGallery = sectionRef.current.querySelector('.work-project-gallery');
       if (projectGallery) {
-        gsap.fromTo(projectGallery, 
+        gsap.fromTo(projectGallery,
           { y: 60, opacity: 0, scale: 0.9 },
           {
             y: 0,
@@ -421,7 +421,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Background image animation - SIMPLE VERSION
       const bgImage = sectionRef.current.querySelector('.work-bg-image');
       if (bgImage) {
-        gsap.fromTo(bgImage, 
+        gsap.fromTo(bgImage,
           { opacity: 0, scale: 1.05 },
           {
             opacity: 1,
@@ -441,7 +441,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Thumbnail animations
       const thumbnails = sectionRef.current.querySelectorAll('.work-thumbnail');
       if (thumbnails.length) {
-        gsap.fromTo(thumbnails, 
+        gsap.fromTo(thumbnails,
           { x: -50, opacity: 0, scale: 0.8 },
           {
             x: 0,
@@ -463,7 +463,7 @@ export function useWorkAnimation({ sectionRef }) {
       // Content animations (right side)
       const projectContent = sectionRef.current.querySelector('.work-project-content');
       if (projectContent) {
-        gsap.fromTo(projectContent, 
+        gsap.fromTo(projectContent,
           { x: 50, opacity: 0, scale: 0.9 },
           {
             x: 0,
@@ -484,7 +484,7 @@ export function useWorkAnimation({ sectionRef }) {
       // CTA button animation
       const ctaButton = sectionRef.current.querySelector('.work-cta-button');
       if (ctaButton) {
-        gsap.fromTo(ctaButton, 
+        gsap.fromTo(ctaButton,
           { y: 30, opacity: 0, scale: 0.9 },
           {
             y: 0,
@@ -633,7 +633,6 @@ export function useProcessAnimation({ sectionRef, imageRef }) {
 
       if (visualWrap) {
         gsap.from(visualWrap, {
-          x: 48,
           opacity: 0,
           duration: 1.15,
           ease: 'power3.out',
@@ -659,7 +658,6 @@ export function useProcessAnimation({ sectionRef, imageRef }) {
 
         imageReveal
           .from(imageShell, {
-            x: 80,
             opacity: 0,
             duration: 1.15,
           })
