@@ -31,15 +31,14 @@ export default function ContactPage() {
       const response = await axios.post(API_URL, formData);
 
       // 2. Frontend se Email bhejo (Web3Forms ke zariye)
-      // NOTE: Iske liye tumhe koi backend ki zaroorat nahi hai.
-      await fetch('https://api.web3forms.com/submit', {
+      const web3Response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: "2385f6db-069f-4113-b9a0-87838fa0bba2", // Yahan apni key dalo
+          access_key: "2385f6db-069f-4113-b9a0-87838fa0bba2",
           subject: `New Project Enquiry: ${formData.name}`,
           from_name: "Veltex Studio",
           replyto: formData.email,
@@ -52,9 +51,15 @@ export default function ContactPage() {
         })
       });
 
-      if (response.data.success) {
+      const web3Result = await web3Response.json();
+      console.log("Web3Forms Response:", web3Result);
+
+      if (response.data.success && web3Result.success) {
         setSuccess(true);
         setFormData({ name: '', email: '', service: '', message: '' });
+      } else if (!web3Result.success) {
+        console.error("Web3Forms Error:", web3Result.message);
+        setError("Email could not be sent: " + web3Result.message);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong. Please check your connection.');
