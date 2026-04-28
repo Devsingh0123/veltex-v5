@@ -23,7 +23,7 @@ export default function SocialSidebar() {
             className="group flex flex-col items-center outline-none"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
           >
-            <span className="font-sans text-[0.7rem] font-bold tracking-[0.4em] uppercase text-black/80 dark:text-white transition-all duration-500 group-hover:text-[#0066cc] group-hover:tracking-[0.55em] group-hover:scale-105">
+            <span className="font-sans text-[0.7rem] font-bold tracking-[0.4em] uppercase text-black/80 transition-all duration-500 group-hover:text-[#0066cc] group-hover:tracking-[0.55em] group-hover:scale-105">
               {link.label}
             </span>
           </a>
