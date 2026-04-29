@@ -127,10 +127,11 @@ canvas {
 
 /* Custom Glassmorphism Utilities */
 .bg-blur-xl {
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  will-change: backdrop-filter;
 }
 
 .bg-blur-dark {
