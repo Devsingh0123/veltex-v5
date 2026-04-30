@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useAboutAnimation } from '../../hooks/useScrollAnimations';
 import { VBackgroundPattern } from './VShape';
-import aboutHomePage from "../../assets/aboutHomePage.jpeg"
+import aboutHomePage from "../../assets/aboutHomePage.png"
 
 export default function About() {
   const sectionRef = useRef(null);

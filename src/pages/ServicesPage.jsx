@@ -161,7 +161,7 @@ export default function ServicesPage() {
 
             {/* CATEGORY NAVIGATION */}
             <div className="flex justify-center border-b border-neutral-100 mb-24">
-                <div className="flex gap-14">
+                <div className="flex overflow-x-auto gap-14">
                     {Object.values(CATEGORIES).map((cat) => (
                         <button
                             key={cat}
