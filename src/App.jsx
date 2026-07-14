@@ -17,6 +17,8 @@ import ProcessPage from './pages/ProcessPage';
 import ContactPage from './pages/ContactPage';
 import InsightsPage from './pages/InsightsPage';
 import AdminPage from './pages/AdminPage';
+import TermsConditionsPage from './pages/TermsConditionsPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 function AppInner() {
   const navRef = useRef(null);
@@ -43,6 +45,8 @@ function AppInner() {
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
         <Route path="/insights" element={<PageWrapper><InsightsPage /></PageWrapper>} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/terms-and-conditions" element={<PageWrapper><TermsConditionsPage /></PageWrapper>} />
+        <Route path="/privacy-policy" element={<PageWrapper><PrivacyPolicyPage /></PageWrapper>} />
       </Routes>
 
       {!isAdmin && <Footer />}

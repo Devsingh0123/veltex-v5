@@ -1,4 +1,5 @@
 import VeltexLogo from '../../assets/VeltexLogo.png';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -23,7 +24,13 @@ export default function Footer() {
         <span>At Veltex, we believe that every business, regardless of size or industry, deserves the power to tell their story and reach their audience.
 
           Since 2013, making professional media planning and execution accessible to all.</span>
-        <span>© {new Date().getFullYear()} Veltex.com. All rights reserved.</span>
+
+        <div className="">
+         Use of this site is subject to our <Link to="/terms-and-conditions" className="underline text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] to-[#8cc63f] font-extrabold text-[0.65rem] hover:opacity-80 transition-opacity duration-300">Terms & Conditions</Link> and <Link to="/privacy-policy" className="underline text-transparent bg-clip-text bg-gradient-to-r from-[#0066cc] to-[#8cc63f] font-extrabold text-[0.65rem] hover:opacity-80 transition-opacity duration-300">Privacy Policy</Link>.
+        </div>
+        <div className="">
+          &copy; {new Date().getFullYear()} Veltex. All rights reserved.
+        </div>
       </div>
     </footer>
   );
