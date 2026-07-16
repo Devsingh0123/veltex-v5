@@ -1,5 +1,5 @@
 import VeltexLogo from '../../assets/VeltexLogo.png';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
 export default function Footer() {
   return (
