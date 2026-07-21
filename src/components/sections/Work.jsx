@@ -37,7 +37,7 @@ const PROJECTS = [
     desc: 'Social, search, display, influencer, print, outdoor, broadcast — we don’t pick favourites. We deploy the right channel mix for your audience and sequence it to build cumulative momentum across the entire campaign.',
     thumb: icghthumb,
     bg: icgh,
-    url: "https://icgh.in/"
+    url: "https://icgh.veltexs.com/"
   },
   {
     id: 3,
